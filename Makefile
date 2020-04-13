@@ -11,6 +11,7 @@ setup: install
 	php artisan key:generate
 	touch database/database.sqlite
 	php artisan migrate
+	php artisan storage:link
 seed:
 	php artisan db:seed
 queue:
