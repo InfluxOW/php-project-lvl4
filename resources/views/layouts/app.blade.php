@@ -17,7 +17,7 @@
 <body>
         <!--Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light rounded border-bottom">
-            <img src="/storage/icons/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
+            <img src="/icons/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
             <h5 class="my-0 mr-md-auto ml-2 font-weight-normal">Task Manager</h5>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto ml-5">
