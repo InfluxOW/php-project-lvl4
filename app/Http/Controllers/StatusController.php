@@ -55,7 +55,7 @@ class StatusController extends Controller
 
         flash(__('Status was created successfully!'))->success()->important();
 
-        return redirect()->route('statuses.index', $status);
+        return redirect()->route('statuses.index');
     }
 
     /**
