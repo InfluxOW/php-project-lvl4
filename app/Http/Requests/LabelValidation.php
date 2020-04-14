@@ -23,8 +23,7 @@ class LabelValidation extends FormRequest
      */
     public function rules()
     {
-        switch ($this->method())
-        {
+        switch ($this->method()) {
             case 'GET':
             case 'DELETE':
                 return [];
