@@ -23,7 +23,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::latest()->with('creator', 'assignees', 'status')->paginate(10);
+        $tasks = Task::latest()->with('creator', 'assignees', 'status', 'labels')->paginate(10);
 
         return view('tasks.index', compact('tasks'));
     }
@@ -65,10 +65,9 @@ class TaskController extends Controller
         $assignees->each(function ($assigneeId) use ($task) {
             $user = User::find($assigneeId);
             $task->assignees()->attach($user);
-            $task->save();
         });
 
-        flash(__('Task was created successfully!'))->success()->important();
+        flash("Task \"$task->name\" was created successfully!")->success()->important();
 
         return redirect()->route('tasks.show', $task);
     }
@@ -109,26 +108,27 @@ class TaskController extends Controller
         $this->authorize($task);
 
         $validatedData = $request->validated();
-        $task->update($validatedData);
+        $task->fill($validatedData);
 
         if ($request->status_id != $task->status->id) {
             $status = Status::find($request->status_id);
-            $task->status()->associate($status)->save();
+            $task->status()->associate($status);
         }
 
-
-
         if ($request->assignees != $task->assignees->pluck('id')->toArray()) {
+            flash("Task \"$task->name\" assignees were updated successfully!")->info()->important();
             $task->assignees()->detach();
             $assignees = collect($request->assignees);
             $assignees->each(function ($assigneeId) use ($task) {
                 $user = User::find($assigneeId);
                 $task->assignees()->attach($user);
-                $task->save();
             });
         }
 
-        flash(__('Task was updated successfully!'))->success()->important();
+        if ($task->isDirty()) {
+            $task->save();
+            flash("Task \"$task->name\" was updated successfully!")->success()->important();
+        }
 
         return redirect()->route('tasks.index');
     }
@@ -145,7 +145,7 @@ class TaskController extends Controller
 
         $task->delete();
 
-        flash(__('Task was deleted successfully!'))->success()->important();
+        flash("Task \"$task->name\" was deleted successfully!")->success()->important();
 
         return redirect()->route('tasks.index');
     }

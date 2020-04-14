@@ -18,3 +18,4 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('tasks', 'TaskController');
 Route::resource('statuses', 'StatusController')->except('show');
+Route::resource('labels', 'LabelController')->except('show');

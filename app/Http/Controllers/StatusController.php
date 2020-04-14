@@ -20,7 +20,7 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $statuses = Status::latest()->paginate(10);
+        $statuses = Status::latest()->paginate(5);
 
         return view('statuses.index', compact('statuses'));
     }
@@ -52,7 +52,7 @@ class StatusController extends Controller
         $validatedData = $request->validated();
         $status = Status::create($validatedData);
 
-        flash(__('Status was created successfully!'))->success()->important();
+        flash("Status \"$status->name\" was created successfully!")->success()->important();
 
         return redirect()->route('statuses.index');
     }
@@ -82,9 +82,12 @@ class StatusController extends Controller
         $this->authorize($status);
 
         $validatedData = $request->validated();
-        $status->update($validatedData);
+        $status->fill($validatedData);
 
-        flash(__('Status was updated successfully!'))->success()->important();
+        if ($status->isDirty()) {
+            $status->save();
+            flash("Status \"$status->name\" was updated successfully!")->success()->important();
+        }
 
         return redirect()->route('statuses.index', $status);
     }
@@ -101,7 +104,7 @@ class StatusController extends Controller
 
         $status->delete();
 
-        flash(__('Status was deleted successfully!'))->success()->important();
+        flash("Status \"$status->name\" was deleted successfully!")->success()->important();
 
         return redirect()->route('statuses.index');
     }

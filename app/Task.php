@@ -25,6 +25,11 @@ class Task extends Model
 
     public function assignees()
     {
-        return $this->belongsToMany('App\User', 'task_assignees', 'task_id', 'assignee_id');
+        return $this->belongsToMany('App\User', 'task_assignees', 'task_id', 'assignee_id')->withTimestamps();
+    }
+
+    public function labels()
+    {
+        return $this->belongsToMany('App\Label')->withTimestamps();
     }
 }

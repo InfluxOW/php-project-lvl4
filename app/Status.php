@@ -25,4 +25,15 @@ class Status extends Model
     {
         return $query->orderBy(static::CREATED_AT, 'desc');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($status) {
+            Task::whereHas('status', function ($query) use ($status) {
+                $query->where('id', $status->id);
+            })->delete();
+        });
+    }
 }

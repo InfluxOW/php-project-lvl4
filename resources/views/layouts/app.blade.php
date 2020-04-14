@@ -32,6 +32,9 @@
                     <li class="nav-item {{ (request()->is('statuses') || request()->is('statuses/*')) ? 'active' : '' }}">
                         <a class="p-2 nav-link" href="{{ route('statuses.index') }}">{{ __('Statuses') }}</a>
                     </li>
+                    <li class="nav-item {{ (request()->is('labels') || request()->is('labels/*')) ? 'active' : '' }}">
+                        <a class="p-2 nav-link" href="{{ route('labels.index') }}">{{ __('Labels') }}</a>
+                    </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right mr-5">

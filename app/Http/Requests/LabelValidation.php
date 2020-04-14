@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StatusValidation extends FormRequest
+class LabelValidation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,7 +23,6 @@ class StatusValidation extends FormRequest
      */
     public function rules()
     {
-
         switch ($this->method())
         {
             case 'GET':
@@ -31,12 +30,14 @@ class StatusValidation extends FormRequest
                 return [];
             case 'POST':
                 return [
-                    'name' => 'required|min:3|max:30|unique:statuses,name',
+                    'name' => 'required|min:3|max:50|unique:labels,name',
+                    'description' => 'required|min:10|max:300'
                 ];
             case 'PUT':
             case 'PATCH':
                 return [
-                    'name' => 'required|min:3|max:30|unique:statuses,name,' . $this->status->id,
+                    'name' => 'required|min:3|max:50|unique:labels,name,' . $this->label->id,
+                    'body' => 'required|min:10|max:300'
                 ];
             default:
                 break;
