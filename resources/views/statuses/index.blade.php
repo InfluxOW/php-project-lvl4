@@ -35,4 +35,6 @@
     @auth
         <a href="{{ route('statuses.create') }}" class="btn btn-primary btn-sm btn-block" role="button" aria-pressed="true">{{ __('Add status') }}</a>
     @endauth
+
+    <div>{{$statuses->links()}}</div>
 @endsection('content')

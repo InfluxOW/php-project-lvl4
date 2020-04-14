@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -41,11 +42,23 @@ class User extends Authenticatable
 
     public function createdTasks()
     {
-        return $this->hasMany('App\Task');
+        return $this->hasMany('App\Task', 'creator_id');
     }
 
     public function assignedTasks()
     {
-        return $this->hasMany('App\Task');
+        return $this->belongsToMany('App\Task', 'task_assignees', 'assignee_id', 'task_id');
+    }
+
+    //Scopes
+
+    public function scopeAssignees(Builder $query)
+    {
+        return $query->whereHas('assignedTasks');
+    }
+
+    public function scopeCreators(Builder $query)
+    {
+        return $query->whereHas('createdTasks');
     }
 }

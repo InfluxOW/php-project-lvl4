@@ -12,6 +12,8 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+
     <title>Task Manager</title>
   </head>
 <body>
@@ -25,7 +27,7 @@
                         <a class="p-2 nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
                     </li>
                     <li class="nav-item {{ (request()->is('tasks') || request()->is('tasks/*')) ? 'active' : '' }}">
-                        <a class="p-2 nav-link" href="#">{{ __('Tasks') }}</a>
+                        <a class="p-2 nav-link" href="{{ route('tasks.index') }}">{{ __('Tasks') }}</a>
                     </li>
                     <li class="nav-item {{ (request()->is('statuses') || request()->is('statuses/*')) ? 'active' : '' }}">
                         <a class="p-2 nav-link" href="{{ route('statuses.index') }}">{{ __('Statuses') }}</a>
@@ -65,5 +67,6 @@
 <!-- Optional JavaScript -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 </body>
 </html>

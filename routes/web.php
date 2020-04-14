@@ -16,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
-Route::resource('statuses', 'StatusController')->except('show');
 Route::resource('tasks', 'TaskController');
+Route::resource('statuses', 'StatusController')->except('show');
+

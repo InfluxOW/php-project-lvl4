@@ -36,7 +36,6 @@ class StatusController extends Controller
 
         $status = new Status();
 
-
         return view('statuses.create', compact('status'));
     }
 

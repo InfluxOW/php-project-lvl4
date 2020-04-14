@@ -102,7 +102,7 @@ class StatusControllerTest extends TestCase
 
     //Testing actions that both users and guests are able to perform
 
-    public function testPostsIndex()
+    public function testIndex()
     {
         $this->createTestStatus();
         $response = $this->get(route('statuses.index'));

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskValidation;
+use App\Status;
 use App\Task;
+use App\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -21,7 +23,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::latest()->paginate(10);
+        $tasks = Task::latest()->with('creator', 'assignees', 'status')->paginate(10);
 
         return view('tasks.index', compact('tasks'));
     }
@@ -37,7 +39,7 @@ class TaskController extends Controller
 
         $task = new Task();
 
-        return view('tasks.create', compact('tasks'));
+        return view('tasks.create', compact('task'));
     }
 
     /**
@@ -51,7 +53,20 @@ class TaskController extends Controller
         $this->authorize(Task::class);
 
         $validatedData = $request->validated();
-        $task = Task::create($validatedData);
+        $task = Task::make($validatedData);
+
+        $user = $request->user();
+        $task->creator()->associate($user);
+
+        $status = Status::find($request->status_id);
+        $task->status()->associate($status)->save();
+
+        $assignees = collect($request->assignees);
+        $assignees->each(function ($assigneeId) use ($task) {
+            $user = User::find($assigneeId);
+            $task->assignees()->attach($user);
+            $task->save();
+        });
 
         flash(__('Task was created successfully!'))->success()->important();
 
@@ -66,8 +81,6 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        $this->authorize($task);
-
         return view('tasks.show', compact('task'));
     }
 
@@ -98,9 +111,26 @@ class TaskController extends Controller
         $validatedData = $request->validated();
         $task->update($validatedData);
 
+        if ($request->status_id != $task->status->id) {
+            $status = Status::find($request->status_id);
+            $task->status()->associate($status)->save();
+        }
+
+
+
+        if ($request->assignees != $task->assignees->pluck('id')->toArray()) {
+            $task->assignees()->detach();
+            $assignees = collect($request->assignees);
+            $assignees->each(function ($assigneeId) use ($task) {
+                $user = User::find($assigneeId);
+                $task->assignees()->attach($user);
+                $task->save();
+            });
+        }
+
         flash(__('Task was updated successfully!'))->success()->important();
 
-        return redirect()->route('tasks.index', $task);
+        return redirect()->route('tasks.index');
     }
 
     /**
