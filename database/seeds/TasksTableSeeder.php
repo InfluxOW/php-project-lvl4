@@ -19,7 +19,10 @@ class TasksTableSeeder extends Seeder
             $task->status()->associate($statuses->random());
             $task->creator()->associate($users->random());
             $task->save();
-            $task->assignees()->attach($users->random());
+
+            $assegneesAmount = random_int(1, $users->count() / 4);
+            $assignees = App\User::inRandomOrder()->take($assegneesAmount)->get();
+            $task->assignees()->sync($assignees);
 
             $labelsAmount = random_int(1, $labelsCount - 2);
             $labels = App\Label::inRandomOrder()->take($labelsAmount)->get();

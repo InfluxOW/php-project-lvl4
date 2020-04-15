@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskValidation;
+use App\Label;
 use App\Status;
 use App\Task;
 use App\User;
@@ -67,6 +68,12 @@ class TaskController extends Controller
             $task->assignees()->attach($user);
         });
 
+        $labels = collect($request->labels);
+        $labels->each(function ($labelId) use ($task) {
+            $label = Label::find($labelId);
+            $task->labels()->attach($label);
+        });
+
         flash("Task \"$task->name\" was created successfully!")->success()->important();
 
         return redirect()->route('tasks.show', $task);
@@ -116,13 +123,23 @@ class TaskController extends Controller
         }
 
         if ($request->assignees != $task->assignees->pluck('id')->toArray()) {
-            flash("Task \"$task->name\" assignees were updated successfully!")->info()->important();
             $task->assignees()->detach();
             $assignees = collect($request->assignees);
             $assignees->each(function ($assigneeId) use ($task) {
                 $user = User::find($assigneeId);
                 $task->assignees()->attach($user);
             });
+            flash("Task \"$task->name\" assignees were updated successfully!")->info();
+        }
+
+        if ($request->labels != $task->labels->pluck('id')->toArray()) {
+            $task->labels()->detach();
+            $labels = collect($request->labels);
+            $labels->each(function ($labelId) use ($task) {
+                $label = Label::find($labelId);
+                $task->labels()->attach($label);
+            });
+            flash("Task \"$task->name\" labels were updated successfully!")->info();
         }
 
         if ($task->isDirty()) {

@@ -5,7 +5,7 @@
 <div class="card text-center shadow-lg">
     <div class="card-header">
         <div class="badge badge-info">
-            {{ $task->status->name }}
+            <h4>{{ $task->status->name }}</h4>
         </div>
     </div>
     <div class="card-body">
@@ -14,6 +14,7 @@
     </div>
     <div class="card-footer text-muted">
         <x-creation-info :model='$task'/>
+        <x-labels :labels='$task->labels'/>
     </div>
 </div>
 

@@ -36,7 +36,7 @@ class LabelValidation extends FormRequest
             case 'PATCH':
                 return [
                     'name' => 'required|min:3|max:50|unique:labels,name,' . $this->label->id,
-                    'body' => 'required|min:10|max:300'
+                    'description' => 'required|min:10|max:300'
                 ];
             default:
                 break;

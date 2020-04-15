@@ -19,6 +19,7 @@ class CreateLabelsTable extends Migration
             $table->string('description', 300);
             $table->integer('attention_level')->default(2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

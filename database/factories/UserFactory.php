@@ -30,6 +30,6 @@ $factory->define(User::class, function (Faker $faker) {
 $factory->state(User::class, 'admin', function () {
     return [
         'name' => 'Admin',
-        'email' => 'Admin@admin.com',
+        'email' => 'admin@admin.com',
     ];
 });
