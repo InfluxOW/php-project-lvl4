@@ -24,6 +24,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer(['tasks.edit', 'tasks.create'], Filtration::class);
+        view()->composer(['tasks.edit', 'tasks.create', 'tasks.index'], Filtration::class);
     }
 }

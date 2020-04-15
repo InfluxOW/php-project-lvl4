@@ -2,11 +2,14 @@
 
 @section('content')
 <x-errors/>
-@auth
-    <a href="{{ route('tasks.create') }}" class="btn btn-primary btn-sm btn-block mb-3" role="button" aria-pressed="true">{{ __('Add task') }}</a>
-@endauth
+<div class="d-flex">
+    @include('tasks._filter-form')
+    @auth
+        <a href="{{ route('tasks.create') }}" class="btn btn-primary mb-3 ml-auto" role="button" aria-pressed="true">{{ __('Add task') }}</a>
+    @endauth
+</div>
 
-<table class="table text-center">
+<table class="table text-center mt-2">
     <thead class="thead-light">
         <tr class="d-flex">
             <th class="col-md-1">#</th>

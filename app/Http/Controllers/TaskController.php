@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskValidation;
+use App\Http\Requests\TransformFiltrationFormRequest;
 use App\Label;
 use App\Status;
 use App\Task;
 use App\User;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 class TaskController extends Controller
 {
@@ -22,9 +26,19 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tasks = Task::latest()->with('creator', 'assignees', 'status', 'labels')->paginate(10);
+        $tasks = QueryBuilder::for(Task::class)
+            ->latest()
+            ->with('creator', 'assignees', 'status', 'labels')
+            ->allowedFilters([
+                AllowedFilter::exact('creator_id'),
+                AllowedFilter::exact('status.id'),
+                AllowedFilter::exact('assignees.id'),
+                AllowedFilter::exact('labels.id')
+            ])
+            ->paginate(10)
+            ->appends(request()->query());
 
         return view('tasks.index', compact('tasks'));
     }

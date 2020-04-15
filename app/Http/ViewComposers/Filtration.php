@@ -23,6 +23,11 @@ class Filtration
             factory(Status::class)->states('new')->create();
         }
         $statusNew = Status::where('name', 'new')->pluck('id');
+        if (request()->has('filter')) {
+            $query = request()->query->all()['filter'];
+        } else {
+            $query = null;
+        }
 
         $view->with('statuses', $statuses);
         $view->with('assignees', $assignees);
@@ -30,5 +35,6 @@ class Filtration
         $view->with('users', $users);
         $view->with('statusNew', $statusNew);
         $view->with('labels', $labels);
+        $view->with('query', $query);
     }
 }
