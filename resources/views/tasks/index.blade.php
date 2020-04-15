@@ -39,7 +39,7 @@
                     {{ $task->creator->name }}
                 </td>
                 <td class="col-md-3">
-                    @if ($task->assignees->count() > 2)
+                    @if ($task->assignees->count() >= 2)
                         <ul class="list-group list-group-flush">
                             @forelse ($task->assignees as $assignee)
                                 <li class="list-group-item">
