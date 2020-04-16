@@ -6,10 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use tizis\laraComments\Traits\Commenter;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use Commenter;
 
     /**
      * The attributes that are mass assignable.

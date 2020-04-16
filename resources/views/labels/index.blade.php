@@ -24,11 +24,14 @@
                     <td class="col-md">{{ $label->created_at }}</td>
                     @auth
                         <td class="col-md-2">
-                            <div class="row">
-                                <a href="{{ route('labels.edit', $label) }}" class="btn btn-primary col-6">{{ __('Edit') }}</a>
-                                <a href="{{ route('labels.destroy', $label) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="btn btn-primary col-6">{{ __('Delete') }}</a>
+                            <div class="container">
+                                <div class="row">
+                                    <a href="{{ route('labels.edit', $label) }}" class="btn btn-primary col-6">{{ __('Edit') }}</a>
+                                    <a href="{{ route('labels.destroy', $label) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="btn btn-primary col-6">{{ __('Delete') }}</a>
+                                </div>
                             </div>
                         </td>
+
                     @endauth
                 </tr>
             @endforeach

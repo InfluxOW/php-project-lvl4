@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
+        "illuminate/pagination": "^7.6",
         "laracasts/flash": "^3.1",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
@@ -20,6 +21,7 @@
         "rollbar/rollbar-laravel": "^6.0",
         "snapappointments/bootstrap-select": "^1.13",
         "spatie/laravel-query-builder": "^2.8",
+        "tizis/lara-comments": "^3.0",
         "twbs/bootstrap": "4.4.1"
     },
     "require-dev": {

@@ -15,3 +15,8 @@ seed:
 	php artisan db:seed
 queue:
 	php artisan queue:work --queue=high,default,low --timeout=1800
+clear:
+	php artisan route:clear
+	php artisan view:clear
+	php artisan cache:clear
+	php artisan config:clear

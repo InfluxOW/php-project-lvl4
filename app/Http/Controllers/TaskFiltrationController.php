@@ -2,22 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Task;
 use Illuminate\Http\Request;
-use Spatie\QueryBuilder\AllowedFilter;
-use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskFiltrationController extends Controller
 {
     public function index(Request $request)
     {
+        // $incomingQuery contains collection of the query string elements
         $incomingQuery = collect($request->query->all());
+        // We're iterating over collection items and transforming nested arrays to strings
         $outcomingQuery = $incomingQuery->map(function ($item) {
-            return collect($item)->map(function ($item, $key) {
+            return collect($item)->map(function ($item) {
                 return implode(',', $item);
-            })->toArray();
-        })->toArray();
+            });
+        });
 
-        return redirect()->route('tasks.index', $outcomingQuery);
+        return redirect()->route('tasks.index', $outcomingQuery->toArray());
     }
 }

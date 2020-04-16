@@ -4,10 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use tizis\laraComments\Contracts\ICommentable;
+use tizis\laraComments\Traits\Commentable;
 
-class Task extends Model
+class Task extends Model implements ICommentable
 {
     use SoftDeletes;
+    use Commentable;
 
     protected $fillable = ['name', 'description', 'status_id', 'creator_id'];
 

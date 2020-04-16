@@ -22,9 +22,11 @@
                     <td class="col-md">{{ $status->created_at }}</td>
                     @auth
                         <td class="col-md-2">
-                            <div class="row">
-                                <a href="{{ route('statuses.edit', $status) }}" class="btn btn-primary col-6">{{ __('Edit') }}</a>
-                                <a href="{{ route('statuses.destroy', $status) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="btn btn-primary col-6">{{ __('Delete') }}</a>
+                            <div class="container">
+                                <div class="row">
+                                    <a href="{{ route('statuses.edit', $status) }}" class="btn btn-primary col-6">{{ __('Edit') }}</a>
+                                    <a href="{{ route('statuses.destroy', $status) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="btn btn-primary col-6">{{ __('Delete') }}</a>
+                                </div>
                             </div>
                         </td>
                     @endauth

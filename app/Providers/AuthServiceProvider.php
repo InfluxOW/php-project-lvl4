@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use App\Policies\CommentPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::resource('comments_custom', CommentPolicy::class, [
+            'delete' => 'delete',
+            'reply' => 'reply',
+            'edit' => 'edit',
+            'vote' => 'vote',
+            'store' => 'store'
+        ]);
     }
 }
