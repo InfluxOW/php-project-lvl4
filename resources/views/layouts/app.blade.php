@@ -15,14 +15,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css">
     {{-- Semantic UI CSS --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('css/semantic.min.css') }}">
+    <link rel='stylesheet prefetch' type="text/css" href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css'>
 
     <title>Task Manager</title>
   </head>
 <body>
         <!--Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light rounded border-bottom">
-            <img src="/icons/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            <h5 class="my-0 mr-md-auto ml-2 font-weight-normal">Task Manager</h5>
+            <i class="big calendar alternate icon"></i>
+            <h4 class="my-0 mr-md-auto ml-2 font-weight-normal">Task Manager</h4>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto ml-5">
                     <li class="nav-item {{ (request()->is('/')) ? 'active' : '' }}">
@@ -64,7 +65,7 @@
             </div>
         </nav>
       <!--/.Navbar -->
-<div class="container my-3">
+<div class="ui grid container">
     @include('flash::message')
 
     @yield('content')

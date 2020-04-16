@@ -3,8 +3,8 @@
 @section('content')
 <x-errors/>
 
-    <table class="table text-center">
-        <thead class="thead-light">
+    <table class="ui grey striped table text-center">
+        <thead>
             <tr class="d-flex">
                 <th class="col-md-1">#</th>
                 <th class="col-md-3">Name</th>
@@ -15,7 +15,7 @@
                 @endauth
             </tr>
         </thead>
-        <tbody class="section section-step">
+        <tbody>
             @foreach ($labels as $label)
                 <tr class="d-flex font-weight-light">
                     <td class="col-md-1">{{ $label->id }}</td>
@@ -24,11 +24,9 @@
                     <td class="col-md">{{ $label->created_at }}</td>
                     @auth
                         <td class="col-md-2">
-                            <div class="container">
-                                <div class="row">
-                                    <a href="{{ route('labels.edit', $label) }}" class="btn btn-primary col-6">{{ __('Edit') }}</a>
-                                    <a href="{{ route('labels.destroy', $label) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="btn btn-primary col-6">{{ __('Delete') }}</a>
-                                </div>
+                            <div class="two ui buttons">
+                                <a href="{{ route('labels.edit', $label) }}" class="ui primary button"">{{ __('Edit') }}</a>
+                                <a href="{{ route('labels.destroy', $label) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="ui button">{{ __('Delete') }}</a>
                             </div>
                         </td>
 
@@ -38,8 +36,12 @@
         </tbody>
     </table>
     @auth
-        <a href="{{ route('labels.create') }}" class="btn btn-primary btn-sm btn-block" role="button" aria-pressed="true">{{ __('Add label') }}</a>
+    <div class="two ui buttons">
+        <a href="{{ route('labels.create') }}" class="ui positive basic button" role="button" aria-pressed="true">{{ __('Add status') }}</a>
+    </div>
     @endauth
 
-    <div class="mt-2">{{$labels->links()}}</div>
+    <div class="ui floated pagination menu mt-2">
+        {{ $labels->links('pagination::semantic-ui') }}
+    </div>
 @endsection('content')

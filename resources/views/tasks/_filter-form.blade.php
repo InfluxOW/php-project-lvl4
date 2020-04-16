@@ -5,7 +5,7 @@
     {{ Form::select('filter[status.id][]', $statuses, getDefaultFiltrationValues('status.id'), ['class' => 'form-control mr-2 selectpicker', 'multiple', 'title' => 'Status']) }}
     {{ Form::select('filter[assignees.id][]', $assignees, getDefaultFiltrationValues('assignees.id'), ['class' => 'form-control mr-2 selectpicker', 'multiple', 'title' => 'Assignee'])  }}
     {{ Form::select('filter[labels.id][]', $labels, getDefaultFiltrationValues('labels.id'), ['class' => 'form-control mr-2 selectpicker', 'multiple', 'title' => 'Label'])  }}
-    {{ Form::submit(__('Apply'), ['class' => 'btn btn-outline-primary mr-2']) }}
+    {{ Form::submit(__('Apply'), ['class' => 'ui primary basic button']) }}
 {{ Form::close() }}
 </div>
 
