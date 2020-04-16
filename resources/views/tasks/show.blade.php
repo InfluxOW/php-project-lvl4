@@ -2,13 +2,12 @@
 
 @section('content')
 <x-errors/>
+
 <div class="card text-center shadow-lg">
-    <div class="card-header">
-        <div class="badge badge-info">
-            <h4>{{ $task->status->name }}</h4>
-        </div>
-    </div>
     <div class="card-body">
+        <div class="text-left">
+            <a class="ui red ribbon label"><h4>{{ $task->status->name }}</h4></a>
+        </div>
         <h5 class="card-title display-4">{{ $task->name }}</h5>
         <p class="card-text lead">{{ $task->description }}</p>
     </div>

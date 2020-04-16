@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);@import url(https://fonts.googleapis.com/css?family=Helvetica&display=swap);@charset "UTF-8";
 
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
@@ -10880,5 +10880,30 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+}
+
+.custom-bottom {
+  margin-bottom: 15px;
+}
+
+.custom-bottom-lg {
+  margin-bottom: 50px;
+}
+
+.custom-top {
+  margin-top: 15px;
+}
+
+.custom-right {
+  margin-right: 15px;
+}
+
+.custom-left {
+  margin-left: 15px;
+}
+
+body #helvetica {
+  font-family: "Helvetica", "Montserrat", "Nunito", sans-serif;
+  font-size: 110%;
 }
 

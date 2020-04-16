@@ -2,10 +2,10 @@
 
 @section('content')
 
-<h1 class="display-4 mb-5">Add New Status</h1>
+<h1 class="display-4">Add New Status</h1>
 
-{{ Form::open(['url' => route('statuses.store')]) }}
+{{ Form::open(['url' => route('statuses.store'), 'class' => 'ui form']) }}
     @include('statuses._form')
-    {{ Form::submit(__('Create'), ['class' => 'btn btn-primary btn-block']) }}
+    {{ Form::submit(__('Create'), ['class' => 'ui primary button fluid']) }}
 {{ Form::close() }}
 @endsection('content')

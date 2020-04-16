@@ -1,23 +1,23 @@
 @forelse ($labels as $label)
     @switch($label->attention_level)
         @case(1)
-            <div class="badge badge-success">
+            <a class="ui green label">
             @break
         @case(2)
-            <div class="badge badge-primary">
+            <a class="ui grey label">
             @break
         @case(3)
-            <div class="badge badge-info">
+            <a class="ui blue label">
             @break
         @case(4)
-            <div class="badge badge-warning">
+            <a class="ui yellow label">
             @break
         @case(5)
-            <div class="badge badge-danger">
+            <a class="ui red label">
             @break
     @endswitch
         {{ $label->name }}
-    </div>
+    </a>
 @empty
-    <div class="font-weight-light"><small>No labels!</small></div>
+    <div><small>No labels!</small></div>
 @endforelse

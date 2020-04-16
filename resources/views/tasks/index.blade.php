@@ -4,10 +4,14 @@
 <x-errors/>
 
 <div>
-    @include('tasks._filter-form')
-    @auth
-        <a href="{{ route('tasks.create') }}" class="ui positive button mb-3 ml-auto" role="button" aria-pressed="true">{{ __('Add task') }}</a>
-    @endauth
+    <div class="ui basic segment">
+        @auth
+            <a href="{{ route('tasks.create') }}" class="ui positive button fluid" aria-pressed="true">{{ __('Add task') }}</a>
+            <div class="ui horizontal divider">Or</div>
+        @endauth
+        @include('tasks._filter-form')
+    </div>
+
 </div>
 
 <table class="ui blue striped table text-center mt-2">
@@ -32,24 +36,24 @@
                     <a href="{{ route('tasks.show', compact('task')) }}">{{ $task->name }}</a>
                 </td>
                 <td>
-                    <div class="badge badge-info">
+                    <a class="ui small blue label">
                         {{ $task->status->name }}
-                    </div>
+                    </a>
                 </td>
                 <td>
                     {{ $task->creator->name }}
                 </td>
                 <td>
                     @if ($task->assignees->count() >= 2)
-                        <ul class="list-group list-group-flush">
+                        <div class="ui relaxed divided list">
                             @forelse ($task->assignees as $assignee)
-                                <li class="list-group-item">
+                                <div class="item">
                                     {{ $assignee->name }}
-                                </li>
+                                </div>
                             @empty
                                 <p>---------</p>
                             @endforelse
-                        </ul>
+                        </d>
                     @elseif ($task->assignees->count() === 1)
                         {{ $task->assignees->first()->name }}
                     @else
@@ -72,7 +76,8 @@
     </tbody>
 </table>
 
-<div class="ui floated pagination menu mb-3">
+<div class="ui floated pagination menu">
     {{ $tasks->links('pagination::semantic-ui') }}
 </div>
+
 @endsection('content')

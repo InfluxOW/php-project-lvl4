@@ -6,3 +6,33 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.custom-bottom {
+    margin-bottom:15px;
+}
+
+.custom-bottom-lg {
+    margin-bottom:50px;
+}
+
+.custom-top {
+    margin-top:15px;
+}
+
+.custom-right {
+    margin-right:15px;
+}
+
+.custom-left {
+    margin-left:15px;
+}
+
+// first line
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Helvetica&display=swap');
+
+// after body element, add the code below. It means the ID #fonts in body element will apply this specific style.
+body #helvetica {
+    font-family: 'Helvetica', "Montserrat", 'Nunito', sans-serif;
+    font-size: 110%;
+}

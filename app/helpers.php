@@ -10,3 +10,24 @@ function getDefaultFiltrationValues($name)
     }
     return null;
 }
+
+function flashMessageLevelToSemanticUi($level)
+{
+    switch ($level) {
+        case 'info':
+            return 'blue';
+            break;
+        case 'success':
+            return 'green';
+            break;
+        case 'error':
+            return 'red';
+            break;
+        case 'warning':
+            return 'yellow';
+            break;
+        case 'default':
+            return '';
+            break;
+    }
+}

@@ -7,10 +7,10 @@
         <thead>
             <tr>
                 <th class="two wide">#</th>
-                <th class="six wide">Name</th>
-                <th class="six wide">Created At</th>
+                <th class="five wide">Name</th>
+                <th class="five wide">Created At</th>
                 @auth
-                    <th class="two wide">Actions</th>
+                    <th class="four wide">Actions</th>
                 @endauth
             </tr>
         </thead>
@@ -35,14 +35,15 @@
         </tbody>
     </table>
     @auth
-        <div class="two ui buttons">
-            <a href="{{ route('statuses.create') }}" class="ui positive basic button" role="button" aria-pressed="true">{{ __('Add status') }}</a>
-        </div>
+        <a href="{{ route('statuses.create') }}" class="ui positive basic button fluid" role="button" aria-pressed="true">{{ __('Add status') }}</a>
     @endauth
 
     @if (count(App\Status::all()) > 5)
-    <div class="ui floated pagination menu mt-2">
-        {{ $statuses->links('pagination::semantic-ui') }}
+    <div class="custom-top">
+        <div class="ui floated pagination menu">
+            {{ $statuses->links('pagination::semantic-ui') }}
+        </div>
     </div>
     @endif
+
 @endsection('content')

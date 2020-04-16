@@ -1,6 +1,6 @@
 <x-errors/>
 
-<div class="text-muted">
-    {{ Form::label('name', __('Name'), ['class' => 'font-weight-normal']) }}<br>
-    {{ Form::text('name', $status->name ?? '', ['class' => 'form-control']) }}<br>
+<div class="field">
+    {{ Form::label('name', __('Name')) }}
+    {{ Form::text('name', $status->name ?? '', ['placeholder' => 'Name']) }}
 </div>

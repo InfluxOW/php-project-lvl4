@@ -1,10 +1,16 @@
 <x-errors/>
 
-<div class="text-muted">
-    {{ Form::label('name', __('Name'), ['class' => 'font-weight-normal my-1']) }}<br>
-    {{ Form::text('name', $label->name ?? '', ['class' => 'form-control']) }}<br>
-    {{ Form::label('description', __('Description'), ['class' => 'form-group font-weight-normal my-1']) }}<br>
-    {{ Form::textarea('description', $label->description ?? '', ['class' => 'form-control', 'rows' => 3]) }}<br>
-    {{ Form::label('attention_level', __('Attention level'), ['class' => 'form-group font-weight-normal my-1']) }}<br>
-    {{ Form::select('attention_level', App\Label::ATTENTION_LEVEL, $label->attention_level ?? 2, ['class' => 'form-control mb-4 selectpicker']) }}
+<div>
+    <div class="field">
+    {{ Form::label('name', __('Name')) }}
+    {{ Form::text('name', $label->name ?? '', ['placeholder' => 'Name']) }}
+    </div>
+    <div class="field">
+    {{ Form::label('description', __('Description')) }}
+    {{ Form::textarea('description', $label->description ?? '', ['rows' => 3, 'placeholder' => 'Name']) }}
+    </div>
+    <div class="field">
+    {{ Form::label('attention_level', __('Attention level')) }}
+    {{ Form::select('attention_level', App\Label::ATTENTION_LEVEL, $label->attention_level ?? 2, ['class' => 'ui fluid selection dropdown custom-bottom']) }}
+    </div>
 </div>

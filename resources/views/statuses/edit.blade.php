@@ -2,10 +2,10 @@
 
 @section('content')
 
-<h1 class="display-4 mb-5">Edit Status</h1>
+<h1 class="display-4">Edit Status</h1>
 
-{{ Form::open(['url' => route('statuses.update', $status), 'method' => 'PATCH']) }}
+{{ Form::open(['url' => route('statuses.update', $status), 'method' => 'PATCH', 'class' => 'ui form']) }}
     @include('statuses._form')
-    {{ Form::submit(__('Update'), ['class' => 'btn btn-primary btn-block']) }}
+    {{ Form::submit(__('Update'), ['class' => 'ui primary button fluid']) }}
 {{ Form::close() }}
 @endsection('content')
