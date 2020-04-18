@@ -2,7 +2,7 @@
 
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
   <head>
-    <!-- Required meta tags -->
+    <!-- Requi meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -17,27 +17,27 @@
     <title>Task Manager</title>
   </head>
 <body>
-    <div class="ui secondary pointing menu" id="helvetica">
+    <div class="ui secondary pointing blue menu">
         <div class="item">
-            <h4 id="helvetica"><i class="calendar alternate icon"></i>Task Manager</h4>
+            <h4><i class="calendar alternate icon"></i>Task Manager</h4>
         </div>
-        <a class="item {{ (request()->is('/')) ? 'active' : '' }}" href="{{ route('home') }}">
+        <a class=" item {{ (request()->is('/')) ? 'active' : '' }}" href="{{ route('home') }}">
             {{ __('Home') }}
         </a>
-        <a class="item {{ (request()->is('tasks') || request()->is('tasks/*')) ? 'active' : '' }}" href="{{ route('tasks.index') }}">
+        <a class=" item {{ (request()->is('tasks') || request()->is('tasks/*')) ? 'active' : '' }}" href="{{ route('tasks.index') }}">
             {{ __('Tasks') }}
         </a>
-        <a class="item {{ (request()->is('statuses') || request()->is('statuses/*')) ? 'active' : '' }}" href="{{ route('statuses.index') }}">
+        <a class=" item {{ (request()->is('statuses') || request()->is('statuses/*')) ? 'active' : '' }}" href="{{ route('statuses.index') }}">
             {{ __('Statuses') }}
         </a>
-        <a class="item {{ (request()->is('labels') || request()->is('labels/*')) ? 'active' : '' }}" href="{{ route('labels.index') }}">
+        <a class=" item {{ (request()->is('labels') || request()->is('labels/*')) ? 'active' : '' }}" href="{{ route('labels.index') }}">
             {{ __('Labels') }}
         </a>
 
         <div class="right menu">
                 @guest
-                    <a class="item {{ (request()->is('register')) ? 'active' : '' }}" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    <a class="item {{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <a class=" item {{ (request()->is('register')) ? 'active' : '' }}" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    <a class=" item {{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}">{{ __('Login') }}</a>
                 @endguest
                 @auth
                 <div class="ui dropdown item">

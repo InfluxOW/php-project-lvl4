@@ -1,39 +1,39 @@
 @if(isset($reply) && $reply === true)
-    <div id="comment-{{ $comment->id }}" class="media">
-@else
-    <li id="comment-{{ $comment->id }}" class="media">
+    <div id="comment-{{ $comment->id }}" class="comments">
 @endif
-<img class="mr-3" src="https://www.gravatar.com/avatar/{{ md5($comment->commenter->email) }}.jpg?s=64"
-        alt="{{ $comment->commenter->name }} Avatar">
-<div class="media-body">
-    <h5 class="mt-0 mb-1">
-        {{ $comment->commenter->name }}
-        <small class="text-muted">- {{ $comment->created_at->diffForHumans() }}</small>
-    </h5>
-    <div>
-        {!! $comment->comment!!}
+<div class="comment">
+    <a class="avatar">
+        <img src="#">
+    </a>
+    <div class="content">
+        <a class="author">{{ $comment->commenter->name }}</a>
+        <div class="metadata">
+            <span class="date">{{ $comment->created_at->diffForHumans() }}</span>
+        </div>
+        <div class="text">
+            {!! $comment->comment!!}
+        </div>
+        <div class="actions">
+            <p>
+                <a data-toggle="modal" data-target="#reply-modal-{{ $comment->id }}"
+                    class="reply">Reply
+                </a>
+                @can('edit', $comment)
+                <a data-toggle="modal" data-target="#comment-modal-{{ $comment->id }}"
+                    class="edit">Edit
+                </a>
+                @endcan
+                @can('delete', $comment)
+                <a href="{{ route('comments.delete', $comment) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+                <form id="comment-delete-form-{{ $comment->id }}"
+                    action="{{route('comments.delete', $comment->id)  }}" method="POST" style="display: none;">
+                    @method('DELETE')
+                    @csrf
+                </form>
+                @endcan
+            </p>
+        </div>
     </div>
-
-    <p>
-        <button data-toggle="modal" data-target="#reply-modal-{{ $comment->id }}"
-                class="btn btn-sm btn-link text-uppercase">Reply
-        </button>
-        @can('edit', $comment)
-            <button data-toggle="modal" data-target="#comment-modal-{{ $comment->id }}"
-                    class="btn btn-sm btn-link text-uppercase">Edit
-            </button>
-        @endcan
-        @can('delete', $comment)
-            <a href="#"
-                onclick="event.preventDefault();document.getElementById('comment-delete-form-{{ $comment->id }}').submit();"
-                class="btn btn-sm btn-link text-danger text-uppercase">Delete</a>
-    <form id="comment-delete-form-{{ $comment->id }}"
-            action="{{route('comments.delete', $comment->id)  }}" method="POST" style="display: none;">
-        @method('DELETE')
-        @csrf
-    </form>
-    @endcan
-    </p>
 
         @include('comments::components.comment.forms')
         <br/>
@@ -46,4 +46,4 @@
         @endforeach
 </div>
 
-    {!! isset($reply) && $reply === true ? '</div>' : '</li>' !!}
+    {!! isset($reply) && $reply === true ? '</div>' : '' !!}

@@ -35,9 +35,10 @@
         </tbody>
     </table>
     @auth
-        <a href="{{ route('statuses.create') }}" class="ui positive basic button fluid" role="button" aria-pressed="true">{{ __('Add status') }}</a>
+        <a href="{{ route('statuses.create') }}" class="ui positive button fluid" role="button" aria-pressed="true">{{ __('Add status') }}</a>
     @endauth
 
+    {{-- 5 is number of items per page --}}
     @if (count(App\Status::all()) > 5)
     <div class="custom-top">
         <div class="ui floated pagination menu">

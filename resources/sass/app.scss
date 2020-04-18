@@ -27,12 +27,31 @@
     margin-left:15px;
 }
 
+.zero-bottom {
+    margin-bottom:0px;
+}
+
+.zero-top {
+    margin-top:0px;
+}
+
+.zero-right {
+    margin-right:0px;
+}
+
+.zero-left {
+    margin-left:0px;
+}
+
+.font-grey {
+    color: rgb(80, 80, 80);
+}
+
 // first line
 @import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Helvetica&display=swap');
 
 // after body element, add the code below. It means the ID #fonts in body element will apply this specific style.
-body #helvetica {
+.helvetica {
     font-family: 'Helvetica', "Montserrat", 'Nunito', sans-serif;
-    font-size: 110%;
 }

@@ -39,10 +39,11 @@
 
     @auth
         <div class="custom-bottom">
-            <a href="{{ route('labels.create') }}" class="ui positive basic button fluid" role="button" aria-pressed="true">{{ __('Add label') }}</a>
+            <a href="{{ route('labels.create') }}" class="ui positive button fluid" role="button" aria-pressed="true">{{ __('Add label') }}</a>
         </div>
     @endauth
 
+    {{-- 5 is number of items per page --}}
     @if (count(App\Status::all()) > 5)
         <div class="ui floated pagination menu">
             {{ $labels->links('pagination::semantic-ui') }}

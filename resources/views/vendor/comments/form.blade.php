@@ -1,19 +1,20 @@
-<div class="card">
-    <div class="card-body">
-        <form method="POST" action="{{ route('comments.store') }}">
-            @csrf
-            <input type="hidden" name="commentable_encrypted_key" value="{{ $model->getEncryptedKey() }}"/>
 
-            <div class="form-group">
-                <label for="message">Enter your message here:</label>
-                <textarea class="form-control @if($errors->has('message')) is-invalid @endif" name="message"
-                          rows="3"></textarea>
-                <div class="invalid-feedback">
-                    Your message is required.
+
+<div class="custom-bottom">
+    <div class="ui one column grid">
+        <div class="column">
+            <div class="ui fluid card">
+                <div class="content">
+                    {{ Form::open(['url' => route('comments.store'), 'method' => 'POST', 'class' => 'ui reply form error'])  }}
+                        {{ Form::hidden('commentable_encrypted_key', $model->getEncryptedKey()) }}
+                        <div class="field">
+                            <div class="font-grey">{{ Form::label('message', __('Enter your message here:'), ['class' => 'zero-bottom']) }}</div>
+                            {{ Form::textarea('message', '', ['rows' => 3]) }}
+                        </div>
+                        {{ Form::submit("Add comment", ['class' => 'ui primary submit button']) }}
+                    {{ Form::close() }}
                 </div>
             </div>
-            <button type="submit" class="btn btn-sm btn-outline-success text-uppercase">Submit</button>
-        </form>
+        </div>
     </div>
 </div>
-<br/>

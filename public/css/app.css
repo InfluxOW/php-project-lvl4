@@ -10902,8 +10902,27 @@ a.text-dark:focus {
   margin-left: 15px;
 }
 
-body #helvetica {
+.zero-bottom {
+  margin-bottom: 0px;
+}
+
+.zero-top {
+  margin-top: 0px;
+}
+
+.zero-right {
+  margin-right: 0px;
+}
+
+.zero-left {
+  margin-left: 0px;
+}
+
+.font-grey {
+  color: #505050;
+}
+
+.helvetica {
   font-family: "Helvetica", "Montserrat", "Nunito", sans-serif;
-  font-size: 110%;
 }
 
