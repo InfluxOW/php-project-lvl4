@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Task', 'task_assignees', 'assignee_id', 'task_id');
     }
 
+    public function image()
+    {
+        return $this->hasOne('App\Image');
+    }
+
     //Scopes
 
     public function scopeAssignees(Builder $query)

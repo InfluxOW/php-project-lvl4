@@ -22,7 +22,8 @@
         "snapappointments/bootstrap-select": "^1.13",
         "spatie/laravel-query-builder": "^2.8",
         "tizis/lara-comments": "^3.0",
-        "twbs/bootstrap": "4.4.1"
+        "twbs/bootstrap": "4.4.1",
+        "league/flysystem-aws-s3-v3": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",
