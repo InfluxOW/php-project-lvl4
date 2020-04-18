@@ -6,7 +6,7 @@
     $count = $model->commentsWithChildrenAndCommenter()->count();
     $comments = $model->commentsWithChildrenAndCommenter()->parentless()->get();
 @endphp
-<ul class="ui small comments">
+<ul class="ui comments">
     @foreach($comments as $comment)
         @include('comments::components.comment.comment')
     @endforeach

@@ -1,6 +1,6 @@
 <div class="zero-bottom zero-top">
     @if(isset($reply) && $reply === true)
-        <div id="comment-{{ $comment->id }}" class="comments">
+        <div id="comment-{{ $comment->id }}" class="custom-left">
     @endif
     <div class="comment">
         <a class="avatar">
