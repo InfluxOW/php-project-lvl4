@@ -55,3 +55,21 @@
 .helvetica {
     font-family: 'Helvetica', "Montserrat", 'Nunito', sans-serif;
 }
+
+.avatar-user {
+    width: 128px;
+    height: 128px;
+}
+
+.grid.container {
+    margin-top: 5em;
+}
+
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}

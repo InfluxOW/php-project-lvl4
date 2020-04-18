@@ -41,8 +41,10 @@
                 @endguest
                 @auth
                 <div class="ui dropdown item">
-                    {{ Auth::user()->name }} <i class="dropdown icon"></i>
+                    {{ Auth::user()->name }}<i class="dropdown icon"></i>
                     <div class="menu">
+                        <a class="item" href="{{ route('users.show', Auth::user()) }}">Profile</a>
+                        <a class="item" href="{{ route('users.edit', Auth::user()) }}">Edit profile</a>
                         <div class="item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</div>
                                 {{Form::open(['url' => route('logout'), 'method' => 'POST', 'id' => 'logout-form', 'class' => 'invisible'])}}
                                 {{Form::close()}}
@@ -65,14 +67,25 @@
 {{-- Semantic UI JavaScript --}}
 <script src="{{ asset('js/semantic.min.js') }}"></script>
 
+
 <script>
-$('div.alert').not('.alert-important').delay(2000).fadeOut(2000);
 $('select.dropdown')
     .dropdown()
 ;
 $('.ui.dropdown')
   .dropdown()
 ;
+</script>
+
+<script>
+$('div.message').not('div.important').delay(2000).fadeOut(2000);
+$('.message .close')
+    .on('click', function() {
+$(this)
+    .closest('.message')
+    .transition('fade')
+;
+    });
 </script>
 
 </body>

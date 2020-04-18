@@ -19,7 +19,7 @@
             <hr>
             <x-labels :labels='$task->labels'/>
             <div class="right floated author">
-                <img class="ui avatar image" src="#"> {{ $task->creator->name }}
+                <img class="ui avatar image" src="{{ isset($task->creator->image) ? $task->creator->image->url : "https://udemy-project-1.s3.eu-west-3.amazonaws.com/avatars/default-user-image.png" }}"> {{ $task->creator->name }}
             </div>
         </div>
     </div>

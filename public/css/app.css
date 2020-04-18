@@ -10926,3 +10926,30 @@ a.text-dark:focus {
   font-family: "Helvetica", "Montserrat", "Nunito", sans-serif;
 }
 
+.avatar-user {
+  width: 128px;
+  height: 128px;
+}
+
+.grid.container {
+  margin-top: 5em;
+}
+
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.border-1 {
+  border: 1px solid #7f0000;
+  border: 1px solid rgba(255, 0, 0, 0.5);
+  -webkit-background-clip: padding-box;
+  /* for Safari */
+  background-clip: padding-box;
+  /* for IE9+, Firefox 4+, Opera, Chrome */
+}
+
