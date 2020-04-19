@@ -7,12 +7,12 @@
             <img src="{{ isset($comment->commenter->image) ? $comment->commenter->image->url : "https://udemy-project-1.s3.eu-west-3.amazonaws.com/avatars/default-user-image.png" }}">
         </a>
         <div class="content">
-            <a class="author">{{ $comment->commenter->name }}</a>
+            <a class="author" href="{{ route('users.show', $comment->commenter) }}">{{ $comment->commenter->name }}</a>
             <div class="metadata">
                 <span class="date">{{ $comment->created_at->diffForHumans() }}</span>
             </div>
             <div class="text">
-                {!! $comment->comment!!}
+                {!! $comment->comment !!}
             </div>
             <div class="actions">
                 <p>

@@ -16,8 +16,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
-Route::resource('tasks', 'TaskController');
 Route::get('/tasks/filtration', 'TaskController@filtration')->name('tasks.filtration');
+Route::resource('tasks', 'TaskController');
 Route::resource('statuses', 'StatusController')->except('show');
 Route::resource('labels', 'LabelController')->except('show');
 Route::resource('users', 'UserController')->only('show', 'edit', 'update');

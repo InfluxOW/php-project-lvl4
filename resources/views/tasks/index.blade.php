@@ -40,14 +40,14 @@
                         </a>
                     </td>
                     <td>
-                        {{ $task->creator->name }}
+                        <a href="{{ route('users.show', $task->creator) }}">{{ $task->creator->name }}</a>
                     </td>
                     <td>
                         @if ($task->assignees->count() >= 2)
                             <div class="ui relaxed divided list">
                                 @forelse ($task->assignees as $assignee)
                                     <div class="item">
-                                        {{ $assignee->name }}
+                                        <a href="{{ route('users.show', $assignee) }}">{{ $assignee->name }}</a>
                                     </div>
                                 @empty
                                     <p>---------</p>

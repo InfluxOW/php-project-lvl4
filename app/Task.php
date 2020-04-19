@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use tizis\laraComments\Contracts\ICommentable;
@@ -34,5 +35,14 @@ class Task extends Model implements ICommentable
     public function labels()
     {
         return $this->belongsToMany('App\Label')->withTimestamps();
+    }
+
+    //Scopes
+
+    public function scopeCompletedTasks(Builder $query)
+    {
+        return $query->whereHas('status', function ($query) {
+            return $query->where('name', 'completed');
+        });
     }
 }
