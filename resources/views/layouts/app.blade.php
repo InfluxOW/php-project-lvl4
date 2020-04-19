@@ -39,10 +39,10 @@
 
                 <ul class="nav navbar-nav ml-auto">
                     @guest
-                        <li class="nav-item">
+                        <li class="nav-item {{ (request()->is('register')) ? 'active' : '' }}">
                             <a class="p-2 nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item {{ (request()->is('login')) ? 'active' : '' }}">
                             <a class="p-2 nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                     @endguest
