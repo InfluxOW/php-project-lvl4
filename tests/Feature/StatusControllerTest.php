@@ -6,113 +6,112 @@ use App\Status;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 class StatusControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->status = factory(Status::class)->create();
+
+        $this->goodData = Arr::only(factory(Status::class)->make()->toArray(), ['name']);
+        $this->badData = ['name' => '12'];
+    }
+
     //Testing actions as a guest
 
     public function testGuestStore()
     {
-        $params = ['name' => 'test name'];
-        $response = $this->post(route('statuses.store'), $params);
+        $response = $this->post(route('statuses.store'), $this->goodData);
 
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('statuses', $params);
+        $this->assertDatabaseMissing('statuses', $this->goodData);
+    }
+
+    public function testGuestEdit()
+    {
+        $response = $this->get(route('statuses.edit', $this->status));
+        $response->assertRedirect(route('login'));
     }
 
     public function testGuestUpdate()
     {
-        $status = $this->createTestStatus();
-        $editedParams = ['name' => 'test name'];
-        $response = $this->patch(route('statuses.update', $status), $editedParams);
+        $response = $this->patch(route('statuses.update', $this->status), $this->goodData);
 
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('statuses', $editedParams);
+        $this->assertDatabaseMissing('statuses', $this->goodData);
     }
 
     public function testGuestDelete()
     {
-        $status = $this->createTestStatus();
-        $response = $this->delete(route('statuses.destroy', $status));
+        $response = $this->delete(route('statuses.destroy', $this->status));
 
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseHas('statuses', ['id' => $status->id, 'name' => $status->name]);
+        $this->assertDatabaseHas('statuses', ['id' => $this->status->id]);
     }
 
     //Testing actions as a user
 
     public function testUserStoreSuccess()
     {
-        $params = ['name' => 'test name'];
         $this->actingAs($this->user())
-            ->post(route('statuses.store'), $params)
-            ->assertStatus(302)
-            ->assertSessionHasNoErrors();
-        $this->assertDatabaseHas('statuses', $params);
+            ->post(route('statuses.store'), $this->goodData)
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+        $this->assertDatabaseHas('statuses', $this->goodData);
     }
 
     public function testUserStoreFail()
     {
-        $params = ['name' => str_repeat('test', 10)];
         $this->actingAs($this->user())
-            ->post(route('statuses.index'), $params)
-            ->assertStatus(302)
-            ->assertSessionHasErrors();
-        $this->assertDatabaseMissing('statuses', $params);
+            ->post(route('statuses.index'), $this->badData)
+            ->assertSessionHasErrors()
+            ->assertRedirect();
+        $this->assertDatabaseMissing('statuses', $this->badData);
+    }
+
+    public function testUserEditSuccess()
+    {
+        $response = $this->actingAs($this->user())->get(route('statuses.edit', $this->status));
+        $response->assertOk();
     }
 
     public function testUserUpdateSuccess()
     {
-        $status = $this->createTestStatus();
-
-        $editedParams = ['name' => 'edited test name'];
         $this->actingAs($this->user())
-            ->patch(route('statuses.update', $status), $editedParams)
-            ->assertStatus(302)
-            ->assertSessionHasNoErrors();
-        $this->assertDatabaseHas("statuses", $editedParams);
+            ->patch(route('statuses.update', $this->status), $this->goodData)
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+        $this->assertDatabaseHas("statuses", $this->goodData);
     }
 
     public function testUserUpdateFail()
     {
-        $status = $this->createTestStatus();
-
-        $editedParams = ['name' => '12'];
         $this->actingAs($this->user())
-            ->patch(route('statuses.update', $status), $editedParams)
-            ->assertStatus(302)
-            ->assertSessionHasErrors();
-        $this->assertDatabaseMissing("statuses", $editedParams);
+            ->patch(route('statuses.update', $this->status), $this->badData)
+            ->assertSessionHasErrors()
+            ->assertRedirect();
+        $this->assertDatabaseMissing("statuses", $this->badData);
     }
 
     public function testUserDeleteSuccess()
     {
-        $status = $this->createTestStatus();
-        $this->assertDatabaseHas("statuses", ['id' => $status->id]);
-
         $this->actingAs($this->user())
-            ->delete(route('statuses.destroy', $status))
-            ->assertStatus(302)
-            ->assertSessionHasNoErrors();
-        $this->assertSoftDeleted("statuses", ['id' => $status->id]);
+            ->delete(route('statuses.destroy', $this->status))
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+        $this->assertSoftDeleted("statuses", ['id' => $this->status->id]);
     }
 
     //Testing actions that both users and guests are able to perform
 
     public function testIndex()
     {
-        $this->createTestStatus();
         $response = $this->get(route('statuses.index'));
-        $response->assertStatus(200);
-    }
-
-    //Helpers
-
-    private function createTestStatus()
-    {
-        return factory(Status::class)->create();
+        $response->assertOk();
     }
 }

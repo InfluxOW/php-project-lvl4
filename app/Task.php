@@ -23,7 +23,7 @@ class Task extends Model implements ICommentable
 
     public function creator()
     {
-        return $this->belongsTo('App\User', 'creator_id', 'id');
+        return $this->belongsTo('App\User', 'creator_id');
     }
 
     public function assignees()

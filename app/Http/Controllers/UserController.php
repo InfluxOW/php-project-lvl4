@@ -45,6 +45,8 @@ class UserController extends Controller
      */
     public function update(UserValidation $request, User $user)
     {
+        $user->update(['name' => $request->name]);
+
         if ($request->hasFile('avatar')) {
             $path = Storage::disk('s3')->put("avatars", $request->file('avatar'), 'public');
 
@@ -58,17 +60,9 @@ class UserController extends Controller
                 'url' => Storage::disk('s3')->url($path)
                 ]);
             $user->image()->save($image);
-            flash(__('User avatar was updated successfully!'))->success();
         }
 
-        if ($request->name != $user->name) {
-            $user->fill(['name' => $request->name]);
-            flash(__('User name was updated successfully!'))->success();
-        }
-
-        if ($user->isDirty()) {
-            $user->save();
-        }
+        flash(__('User was updated successfully!'))->success();
 
         return redirect()->route('users.show', $user);
     }

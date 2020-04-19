@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LabelValidation;
 use App\Label;
-use Illuminate\Http\Request;
 
 class LabelController extends Controller
 {
@@ -82,12 +81,9 @@ class LabelController extends Controller
         $this->authorize($label);
 
         $validatedData = $request->validated();
-        $label->fill($validatedData);
+        $label->update($validatedData);
 
-        if ($label->isDirty()) {
-            $label->save();
-            flash("Label \"$label->name\" was updated successfully!")->success()->important();
-        }
+        flash("Label \"$label->name\" was updated successfully!")->success()->important();
 
         return redirect()->route('labels.index', $label);
     }

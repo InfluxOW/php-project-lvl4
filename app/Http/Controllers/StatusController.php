@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StatusValidation;
 use App\Status;
-use Illuminate\Http\Request;
 
 class StatusController extends Controller
 {
@@ -82,12 +81,9 @@ class StatusController extends Controller
         $this->authorize($status);
 
         $validatedData = $request->validated();
-        $status->fill($validatedData);
+        $status->update($validatedData);
 
-        if ($status->isDirty()) {
-            $status->save();
-            flash("Status \"$status->name\" was updated successfully!")->success()->important();
-        }
+        flash("Status \"$status->name\" was updated successfully!")->success()->important();
 
         return redirect()->route('statuses.index', $status);
     }
