@@ -44,7 +44,7 @@
     @endauth
 
     {{-- 5 is number of items per page --}}
-    @if (count(App\Status::all()) > 5)
+    @if (count(App\Label::all()) > 5)
         <div class="ui floated pagination menu">
             {{ $labels->links('pagination::semantic-ui') }}
         </div>
