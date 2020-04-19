@@ -1,6 +1,6 @@
 
 <div>
-{{ Form::open(['url' => route('tasks.filtration.index') , 'method' => 'GET', 'class' => 'ui form custom-top']) }}
+{{ Form::open(['url' => route('tasks.filtration') , 'method' => 'GET', 'class' => 'ui form custom-top']) }}
     <div class="fields">
         <div class="field">{{ Form::select('filter[creator_id][]', $creators, getDefaultFiltrationValues('creator_id'), ['class' => 'ui dropdown', 'multiple' => '', 'placeholder' => 'Creator']) }}</div>
         <div class="field">{{ Form::select('filter[status.id][]', $statuses, getDefaultFiltrationValues('status.id'), ['class' => 'ui dropdown', 'multiple' => '', 'placeholder' => 'Status']) }}</div>
