@@ -19,10 +19,11 @@ class Filtration
         $users = User::pluck('name', 'id');
         $labels = Label::pluck('name', 'id');
 
-        if (!Status::where('name', 'new')->first()) {
-            factory(Status::class)->states('new')->create();
-        }
+        // if (!Status::where('name', 'new')->first()) {
+        //     Status::create(['name' => 'new']);
+        // }
         $statusNew = Status::where('name', 'new')->pluck('id');
+
         if (request()->has('filter')) {
             $query = request()->query->all()['filter'];
         } else {

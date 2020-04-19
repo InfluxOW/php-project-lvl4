@@ -23,22 +23,8 @@ class StatusValidation extends FormRequest
      */
     public function rules()
     {
-
-        switch ($this->method()) {
-            case 'GET':
-            case 'DELETE':
-                return [];
-            case 'POST':
-                return [
-                    'name' => 'required|min:3|max:30|unique:statuses,name',
-                ];
-            case 'PUT':
-            case 'PATCH':
-                return [
-                    'name' => 'required|min:3|max:30|unique:statuses,name,' . $this->status->id,
-                ];
-            default:
-                break;
-        }
+        return [
+            'name' => 'required|min:3|max:30|unique:statuses,name',
+        ];
     }
 }

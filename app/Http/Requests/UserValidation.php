@@ -26,7 +26,8 @@ class UserValidation extends FormRequest
     public function rules()
     {
         return [
-            'avatar' => 'image|mimes:jpeg,jpg,png,gif,svg|max:1024|dimensions:ratio=1/1'
+            'avatar' => 'image|mimes:jpeg,jpg,png,gif,svg|max:1024|dimensions:ratio=1/1',
+            'name' => 'required|string|max:255'
         ];
     }
 }

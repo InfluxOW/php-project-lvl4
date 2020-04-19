@@ -3,15 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskValidation;
-use App\Http\Requests\TransformFiltrationFormRequest;
-use App\Label;
 use App\Status;
 use App\Task;
-use App\User;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
 class TaskController extends Controller
 {
@@ -73,20 +69,14 @@ class TaskController extends Controller
         $user = $request->user();
         $task->creator()->associate($user);
 
-        $status = Status::find($request->status_id);
+        $status = Status::find($request->status_id) ?? Status::create(['name' => 'new']);
         $task->status()->associate($status)->save();
 
-        $assignees = collect($request->assignees);
-        $assignees->each(function ($assigneeId) use ($task) {
-            $user = User::find($assigneeId);
-            $task->assignees()->attach($user);
-        });
+        $assignees = $request->assignees;
+        $task->assignees()->sync($assignees);
 
-        $labels = collect($request->labels);
-        $labels->each(function ($labelId) use ($task) {
-            $label = Label::find($labelId);
-            $task->labels()->attach($label);
-        });
+        $labels = $request->labels;
+        $task->labels()->sync($labels);
 
         flash("Task \"$task->name\" was created successfully!")->success()->important();
 
@@ -129,37 +119,18 @@ class TaskController extends Controller
         $this->authorize($task);
 
         $validatedData = $request->validated();
-        $task->fill($validatedData);
+        $task->update($validatedData);
 
-        if ($request->status_id != $task->status->id) {
-            $status = Status::find($request->status_id);
-            $task->status()->associate($status);
-        }
+        $status = Status::find($request->status_id);
+        $task->status()->associate($status);
 
-        if ($request->assignees != $task->assignees->pluck('id')->toArray()) {
-            $task->assignees()->detach();
-            $assignees = collect($request->assignees);
-            $assignees->each(function ($assigneeId) use ($task) {
-                $user = User::find($assigneeId);
-                $task->assignees()->attach($user);
-            });
-            flash("Task \"$task->name\" assignees were updated successfully!")->info();
-        }
+        $assignees = $request->assignees;
+        $task->assignees()->sync($assignees);
 
-        if ($request->labels != $task->labels->pluck('id')->toArray()) {
-            $task->labels()->detach();
-            $labels = collect($request->labels);
-            $labels->each(function ($labelId) use ($task) {
-                $label = Label::find($labelId);
-                $task->labels()->attach($label);
-            });
-            flash("Task \"$task->name\" labels were updated successfully!")->info();
-        }
+        $labels = $request->labels;
+        $task->labels()->sync($labels);
 
-        if ($task->isDirty()) {
-            $task->save();
-            flash("Task \"$task->name\" was updated successfully!")->success()->important();
-        }
+        flash("Task \"$task->name\" was updated successfully!")->success()->important();
 
         return redirect()->route('tasks.index');
     }
@@ -179,5 +150,19 @@ class TaskController extends Controller
         flash("Task \"$task->name\" was deleted successfully!")->success()->important();
 
         return redirect()->route('tasks.index');
+    }
+
+    public function filtration(Request $request)
+    {
+        // $incomingQuery contains collection of the query string elements
+        $incomingQuery = collect($request->query->all());
+        // We're iterating over collection items and transforming nested arrays to strings
+        $outcomingQuery = $incomingQuery->map(function ($item) {
+            return collect($item)->map(function ($item) {
+                return implode(',', $item);
+            });
+        });
+
+        return redirect()->route('tasks.index', $outcomingQuery->toArray());
     }
 }

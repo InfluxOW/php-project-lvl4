@@ -14,9 +14,4 @@ abstract class TestCase extends BaseTestCase
     {
         return factory(User::class)->create();
     }
-
-    protected function status()
-    {
-        return factory(Status::class)->states('new')->create();
-    }
 }

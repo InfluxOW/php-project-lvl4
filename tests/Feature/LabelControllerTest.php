@@ -5,113 +5,112 @@ namespace Tests\Feature;
 use App\Label;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Arr;
 use Tests\TestCase;
 
 class LabelControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->label = factory(Label::class)->create();
+
+        $this->goodData = Arr::only(factory(Label::class)->make()->toArray(), ['name', 'description']);
+        $this->badData = ['name' => '12', 'description' => '12'];
+    }
+
     //Testing actions as a guest
 
     public function testGuestStore()
     {
-        $params = ['name' => 'test name', 'description' => 'test description'];
-        $response = $this->post(route('labels.store'), $params);
+        $response = $this->post(route('labels.store'), $this->goodData);
 
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('labels', $params);
+        $this->assertDatabaseMissing('labels', $this->goodData);
+    }
+
+    public function testGuestEdit()
+    {
+        $response = $this->get(route('labels.edit', $this->label));
+        $response->assertRedirect(route('login'));
     }
 
     public function testGuestUpdate()
     {
-        $label = $this->createTestLabel();
-        $editedParams = ['name' => 'test name', 'description' => 'test description'];
-        $response = $this->patch(route('labels.update', $label), $editedParams);
+        $response = $this->patch(route('labels.update', $this->label), $this->goodData);
 
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('labels', $editedParams);
+        $this->assertDatabaseMissing('labels', $this->goodData);
     }
 
     public function testGuestDelete()
     {
-        $label = $this->createTestLabel();
-        $response = $this->delete(route('labels.destroy', $label));
+        $response = $this->delete(route('labels.destroy', $this->label));
 
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseHas('labels', ['id' => $label->id, 'name' => $label->name]);
+        $this->assertDatabaseHas('labels', ['id' => $this->label->id]);
     }
 
     //Testing actions as a user
 
     public function testUserStoreSuccess()
     {
-        $params = ['name' => 'test name', 'description' => 'test description'];
         $this->actingAs($this->user())
-            ->post(route('labels.store'), $params)
-            ->assertStatus(302)
-            ->assertSessionHasNoErrors();
-        $this->assertDatabaseHas('labels', $params);
+            ->post(route('labels.store'), $this->goodData)
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+        $this->assertDatabaseHas('labels', $this->goodData);
     }
 
     public function testUserStoreFail()
     {
-        $params = ['name' => str_repeat('test', 20), 'description' => 'test description'];
         $this->actingAs($this->user())
-            ->post(route('labels.index'), $params)
-            ->assertStatus(302)
-            ->assertSessionHasErrors();
-        $this->assertDatabaseMissing('labels', $params);
+            ->post(route('labels.index'), $this->badData)
+            ->assertSessionHasErrors()
+            ->assertRedirect();
+        $this->assertDatabaseMissing('labels', $this->badData);
+    }
+
+    public function testUserEditSuccess()
+    {
+        $response = $this->actingAs($this->user())->get(route('labels.edit', $this->label));
+        $response->assertOk();
     }
 
     public function testUserUpdateSuccess()
     {
-        $label = $this->createTestLabel();
-
-        $editedParams = ['name' => 'edited test name', 'description' => 'test description'];
         $this->actingAs($this->user())
-            ->patch(route('labels.update', $label), $editedParams)
-            ->assertStatus(302)
-            ->assertSessionHasNoErrors();
-        $this->assertDatabaseHas("labels", $editedParams);
+            ->patch(route('labels.update', $this->label), $this->goodData)
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+        $this->assertDatabaseHas("labels", $this->goodData);
     }
 
     public function testUserUpdateFail()
     {
-        $label = $this->createTestLabel();
-
-        $editedParams = ['name' => '12', 'description' => 'test description'];
         $this->actingAs($this->user())
-            ->patch(route('labels.update', $label), $editedParams)
-            ->assertStatus(302)
-            ->assertSessionHasErrors();
-        $this->assertDatabaseMissing("labels", $editedParams);
+            ->patch(route('labels.update', $this->label), $this->badData)
+            ->assertSessionHasErrors()
+            ->assertRedirect();
+        $this->assertDatabaseMissing("labels", $this->badData);
     }
 
     public function testUserDeleteSuccess()
     {
-        $label = $this->createTestLabel();
-        $this->assertDatabaseHas("labels", ['id' => $label->id]);
-
         $this->actingAs($this->user())
-            ->delete(route('labels.destroy', $label))
-            ->assertStatus(302)
-            ->assertSessionHasNoErrors();
-        $this->assertSoftDeleted("labels", ['id' => $label->id]);
+            ->delete(route('labels.destroy', $this->label))
+            ->assertSessionHasNoErrors()
+            ->assertRedirect();
+        $this->assertSoftDeleted("labels", ['id' => $this->label->id]);
     }
 
     //Testing actions that both users and guests are able to perform
 
     public function testIndex()
     {
-        $this->createTestLabel();
         $response = $this->get(route('labels.index'));
-        $response->assertStatus(200);
-    }
-
-    //Helpers
-
-    private function createTestLabel()
-    {
-        return factory(Label::class)->create();
+        $response->assertOk();
     }
 }
