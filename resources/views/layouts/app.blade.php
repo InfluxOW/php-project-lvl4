@@ -50,6 +50,12 @@
                         <li class="nav-item dropdown {{ (request()->is('users') || request()->is('users/*')) ? 'active' : '' }}">
                             <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}</a>
                             <div class="dropdown-menu dropdown-menu-right text-center font-weight-light">
+                                <a class="p-2 nav-link" href="{{ route('users.show', ['user' => Auth::user()]) }}">
+                                    {{ __('Profile') }}
+                                </a>
+                                <a class="p-2 nav-link" href="{{ route('users.edit', ['user' => Auth::user()]) }}">
+                                    {{ __('Edit profile') }}
+                                </a>
                                 <a class="p-2 nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
