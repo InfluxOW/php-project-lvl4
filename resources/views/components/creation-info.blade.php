@@ -1,4 +1,4 @@
 <div class="text-muted">
     Created {{ $model->created_at->diffForHumans() }}
-    by {{ $model->creator->name }} </a>
+    by <a href="route('users.show', $model->creator)">{{ $model->creator->name }}</a> </a>
 </div>

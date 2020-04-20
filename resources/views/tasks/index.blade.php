@@ -36,21 +36,21 @@
                     </div>
                 </td>
                 <td class="col-md-1">
-                    {{ $task->creator->name }}
+                    <a href="{{ route('users.show', $task->creator) }}">{{ $task->creator->name }}</a>
                 </td>
                 <td class="col-md-3">
                     @if ($task->assignees->count() >= 2)
                         <ul class="list-group list-group-flush">
                             @forelse ($task->assignees as $assignee)
                                 <li class="list-group-item">
-                                    {{ $assignee->name }}
+                                    <a href="{{ route('users.show', $assignee) }}">{{ $assignee->name }}</a>
                                 </li>
                             @empty
                                 <p>---------</p>
                             @endforelse
                         </ul>
                     @elseif ($task->assignees->count() === 1)
-                        {{ $task->assignees->first()->name }}
+                        <a href="{{ route('users.show', $task->assignees->first()) }}">{{ $task->assignees->first()->name }}</a>
                     @else
                         ---------
                     @endif

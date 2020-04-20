@@ -7,7 +7,7 @@
         alt="{{ $comment->commenter->name }} Avatar">
 <div class="media-body">
     <h5 class="mt-0 mb-1">
-        {{ $comment->commenter->name }}
+        <a href="{{ route('users.show', $comment->commenter) }}">{{ $comment->commenter->name }}</a>
         <small class="text-muted">- {{ $comment->created_at->diffForHumans() }}</small>
     </h5>
     <div>

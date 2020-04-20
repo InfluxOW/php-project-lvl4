@@ -10882,3 +10882,8 @@ a.text-dark:focus {
   }
 }
 
+.avatar {
+  height: 128px;
+  width: 128px;
+}
+
