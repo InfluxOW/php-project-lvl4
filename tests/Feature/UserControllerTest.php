@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Web;
+namespace Tests\Feature;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -11,7 +11,6 @@ use Illuminate\Support\Arr;
 class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
-
 
     protected function setUp(): void
     {

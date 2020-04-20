@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Status;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
 

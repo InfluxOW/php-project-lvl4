@@ -35,11 +35,10 @@ class TaskControllerTest extends TestCase
 
     public function testGuestStore()
     {
-        $params = ['name' => 'test name'];
-        $response = $this->post(route('tasks.store'), $params);
+        $response = $this->post(route('tasks.store'), $this->goodData);
 
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('tasks', $params);
+        $this->assertDatabaseMissing('tasks', $this->goodData);
     }
 
     public function testGuestEdit()
@@ -50,11 +49,10 @@ class TaskControllerTest extends TestCase
 
     public function testGuestUpdate()
     {
-        $editedParams = ['name' => 'test name'];
-        $response = $this->patch(route('tasks.update', $this->task), $editedParams);
+        $response = $this->patch(route('tasks.update', $this->task), $this->goodData);
 
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('tasks', $editedParams);
+        $this->assertDatabaseMissing('tasks', $this->goodData);
     }
 
     public function testGuestDelete()
