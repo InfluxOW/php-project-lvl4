@@ -122,7 +122,7 @@ class TaskController extends Controller
         $task->update($validatedData);
 
         $status = Status::find($request->status_id);
-        $task->status()->associate($status);
+        $task->status()->associate($status)->save();
 
         $assignees = $request->assignees;
         $task->assignees()->sync($assignees);
