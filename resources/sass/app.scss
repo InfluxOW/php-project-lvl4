@@ -1,5 +1,7 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import url('https://fonts.googleapis.com/css?family=Helvetica');
 
 // Variables
 @import 'variables';
@@ -47,13 +49,12 @@
     color: rgb(80, 80, 80);
 }
 
-// first line
-@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Helvetica&display=swap');
-
-// after body element, add the code below. It means the ID #fonts in body element will apply this specific style.
 .helvetica {
     font-family: 'Helvetica', "Montserrat", 'Nunito', sans-serif;
+}
+
+.bigger-font {
+    font-size: 110%;
 }
 
 .avatar-user {

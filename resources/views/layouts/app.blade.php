@@ -19,33 +19,33 @@
 <body>
     <div class="ui secondary pointing blue menu">
         <div class="item">
-            <h4><i class="calendar alternate icon"></i>Task Manager</h4>
+            <h4 class="helvetica bigger-font"><i class="calendar alternate icon"></i>Task Manager</h4>
         </div>
-        <a class=" item {{ (request()->is('/')) ? 'active' : '' }}" href="{{ route('home') }}">
+        <a class="helvetica bigger-font item {{ (request()->is('/')) ? 'active' : '' }}" href="{{ route('home') }}">
             {{ __('Home') }}
         </a>
-        <a class=" item {{ (request()->is('tasks') || request()->is('tasks/*')) ? 'active' : '' }}" href="{{ route('tasks.index') }}">
+        <a class="helvetica bigger-font item {{ (request()->is('tasks') || request()->is('tasks/*')) ? 'active' : '' }}" href="{{ route('tasks.index') }}">
             {{ __('Tasks') }}
         </a>
-        <a class=" item {{ (request()->is('statuses') || request()->is('statuses/*')) ? 'active' : '' }}" href="{{ route('statuses.index') }}">
+        <a class="helvetica bigger-font item {{ (request()->is('statuses') || request()->is('statuses/*')) ? 'active' : '' }}" href="{{ route('statuses.index') }}">
             {{ __('Statuses') }}
         </a>
-        <a class=" item {{ (request()->is('labels') || request()->is('labels/*')) ? 'active' : '' }}" href="{{ route('labels.index') }}">
+        <a class="helvetica bigger-font item {{ (request()->is('labels') || request()->is('labels/*')) ? 'active' : '' }}" href="{{ route('labels.index') }}">
             {{ __('Labels') }}
         </a>
 
         <div class="right menu">
                 @guest
-                    <a class=" item {{ (request()->is('register')) ? 'active' : '' }}" href="{{ route('register') }}">{{ __('Register') }}</a>
-                    <a class=" item {{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}">{{ __('Login') }}</a>
+                    <a class="helvetica bigger-font item {{ (request()->is('register')) ? 'active' : '' }}" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    <a class="helvetica bigger-font item {{ (request()->is('login')) ? 'active' : '' }}" href="{{ route('login') }}">{{ __('Login') }}</a>
                 @endguest
                 @auth
-                <div class="ui dropdown item">
+                <div class="ui dropdown item helvetica bigger-font">
                     {{ Auth::user()->name }}<i class="dropdown icon"></i>
                     <div class="menu">
-                        <a class="item" href="{{ route('users.show', Auth::user()) }}">Profile</a>
-                        <a class="item" href="{{ route('users.edit', Auth::user()) }}">Edit profile</a>
-                        <div class="item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</div>
+                        <a class="helvetica bigger-font item" href="{{ route('users.show', Auth::user()) }}">Profile</a>
+                        <a class="helvetica bigger-font item" href="{{ route('users.edit', Auth::user()) }}">Edit profile</a>
+                        <div class="helvetica bigger-font item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</div>
                                 {{Form::open(['url' => route('logout'), 'method' => 'POST', 'id' => 'logout-form', 'class' => 'invisible'])}}
                                 {{Form::close()}}
                     </div>

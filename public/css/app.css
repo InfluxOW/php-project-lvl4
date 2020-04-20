@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Montserrat&display=swap);@import url(https://fonts.googleapis.com/css?family=Helvetica&display=swap);@charset "UTF-8";
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Montserrat);@import url(https://fonts.googleapis.com/css?family=Helvetica);@charset "UTF-8";
 
 /*!
  * Bootstrap v4.4.1 (https://getbootstrap.com/)
@@ -10926,6 +10926,10 @@ a.text-dark:focus {
   font-family: "Helvetica", "Montserrat", "Nunito", sans-serif;
 }
 
+.bigger-font {
+  font-size: 110%;
+}
+
 .avatar-user {
   width: 128px;
   height: 128px;
@@ -10942,14 +10946,5 @@ a.text-dark:focus {
   overflow: hidden;
   position: absolute;
   z-index: -1;
-}
-
-.border-1 {
-  border: 1px solid #7f0000;
-  border: 1px solid rgba(255, 0, 0, 0.5);
-  -webkit-background-clip: padding-box;
-  /* for Safari */
-  background-clip: padding-box;
-  /* for IE9+, Firefox 4+, Opera, Chrome */
 }
 
