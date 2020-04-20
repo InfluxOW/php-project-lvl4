@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Label;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class LabelValidation extends FormRequest
 {
@@ -30,13 +32,15 @@ class LabelValidation extends FormRequest
             case 'POST':
                 return [
                     'name' => 'required|min:3|max:50|unique:labels,name',
-                    'description' => 'required|min:10|max:300'
+                    'description' => 'required|min:10|max:300',
+                    'attention_level' => 'required', Rule::in(Label::ATTENTION_LEVEL)
                 ];
             case 'PUT':
             case 'PATCH':
                 return [
                     'name' => 'required|min:3|max:50|unique:labels,name,' . $this->label->id,
-                    'description' => 'required|min:10|max:300'
+                    'description' => 'required|min:10|max:300',
+                    'attention_level' => 'required', Rule::in(Label::ATTENTION_LEVEL)
                 ];
             default:
                 break;
