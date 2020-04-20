@@ -46,7 +46,7 @@ class UserControllerTest extends TestCase
 
     public function testUserShow()
     {
-        $response = $this->actingAs($this->user)->get(route('users.show', $this->user));
+        $response = $this->actingAs($this->user())->get(route('users.show', $this->user));
         $response->assertOk();
     }
 

@@ -54,7 +54,7 @@
                                 @endforelse
                             </d>
                         @elseif ($task->assignees->count() === 1)
-                            {{ $task->assignees->first()->name }}
+                        <a href="{{ route('users.show', $task->assignees->first()) }}">{{ $task->assignees->first()->name }}</a>
                         @else
                             ---------
                         @endif
