@@ -20,39 +20,6 @@ class LabelControllerTest extends TestCase
         $this->goodData = Arr::only(factory(Label::class)->make()->toArray(), ['name', 'description']);
         $this->badData = ['name' => '12', 'description' => '12'];
     }
-
-    //Testing actions as a guest
-
-    public function testGuestStore()
-    {
-        $response = $this->post(route('labels.store'), $this->goodData);
-
-        $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('labels', $this->goodData);
-    }
-
-    public function testGuestEdit()
-    {
-        $response = $this->get(route('labels.edit', $this->label));
-        $response->assertRedirect(route('login'));
-    }
-
-    public function testGuestUpdate()
-    {
-        $response = $this->patch(route('labels.update', $this->label), $this->goodData);
-
-        $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('labels', $this->goodData);
-    }
-
-    public function testGuestDelete()
-    {
-        $response = $this->delete(route('labels.destroy', $this->label));
-
-        $response->assertRedirect(route('login'));
-        $this->assertDatabaseHas('labels', ['id' => $this->label->id]);
-    }
-
     //Testing actions as a user
 
     public function testUserStoreSuccess()

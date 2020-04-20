@@ -22,38 +22,6 @@ class StatusControllerTest extends TestCase
         $this->badData = ['name' => '12'];
     }
 
-    //Testing actions as a guest
-
-    public function testGuestStore()
-    {
-        $response = $this->post(route('statuses.store'), $this->goodData);
-
-        $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('statuses', $this->goodData);
-    }
-
-    public function testGuestEdit()
-    {
-        $response = $this->get(route('statuses.edit', $this->status));
-        $response->assertRedirect(route('login'));
-    }
-
-    public function testGuestUpdate()
-    {
-        $response = $this->patch(route('statuses.update', $this->status), $this->goodData);
-
-        $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('statuses', $this->goodData);
-    }
-
-    public function testGuestDelete()
-    {
-        $response = $this->delete(route('statuses.destroy', $this->status));
-
-        $response->assertRedirect(route('login'));
-        $this->assertDatabaseHas('statuses', ['id' => $this->status->id]);
-    }
-
     //Testing actions as a user
 
     public function testUserStoreSuccess()

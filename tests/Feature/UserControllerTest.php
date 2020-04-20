@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Web;
+namespace Tests\Feature;
 
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -20,26 +20,6 @@ class UserControllerTest extends TestCase
         $this->user = factory(User::class)->create();
         $this->goodData = Arr::only(factory(User::class)->make()->toArray(), ['name']);
         $this->badData = ['name' => ''];
-    }
-
-    //Testing actions as a guest
-
-    public function testGuestShow()
-    {
-        $response = $this->get(route('users.show', $this->user));
-        $response->assertRedirect(route('login'));
-    }
-
-    public function testGuestEdit()
-    {
-        $response = $this->get(route('users.edit', $this->user));
-        $response->assertRedirect(route('login'));
-    }
-
-    public function testGuestUpdate()
-    {
-        $response = $this->patch(route('users.show', $this->user), $this->goodData);
-        $response->assertRedirect(route('login'));
     }
 
     //Testing actions as a user

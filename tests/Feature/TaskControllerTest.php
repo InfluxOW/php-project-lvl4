@@ -31,40 +31,6 @@ class TaskControllerTest extends TestCase
         ];
     }
 
-    //Testing actions as a guest
-
-    public function testGuestStore()
-    {
-        $params = ['name' => 'test name'];
-        $response = $this->post(route('tasks.store'), $params);
-
-        $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('tasks', $params);
-    }
-
-    public function testGuestEdit()
-    {
-        $response = $this->get(route('tasks.edit', $this->task));
-        $response->assertRedirect(route('login'));
-    }
-
-    public function testGuestUpdate()
-    {
-        $editedParams = ['name' => 'test name'];
-        $response = $this->patch(route('tasks.update', $this->task), $editedParams);
-
-        $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('tasks', $editedParams);
-    }
-
-    public function testGuestDelete()
-    {
-        $response = $this->delete(route('tasks.destroy', $this->task));
-
-        $response->assertRedirect(route('login'));
-        $this->assertDatabaseHas('tasks', ['id' => $this->task->id, 'name' => $this->task->name]);
-    }
-
     //Testing actions as a user
 
     public function testUserStoreSuccess()
