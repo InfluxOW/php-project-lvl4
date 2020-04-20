@@ -24,7 +24,11 @@ class TaskControllerTest extends TestCase
 
         $this->task = factory(Task::class)->create();
         $this->goodData = Arr::only(factory(Task::class)->make()->toArray(), ['name', 'description', 'status_id']);
-        $this->badData = ['name' => '12', 'description' => str_repeat('too long description', 50), 'status_id' => $this->task->status->id];
+        $this->badData = [
+            'name' => '12',
+            'description' => str_repeat('too long description', 50),
+            'status_id' => $this->task->status->id
+        ];
     }
 
     //Testing actions as a guest
