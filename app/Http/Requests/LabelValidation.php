@@ -33,14 +33,14 @@ class LabelValidation extends FormRequest
                 return [
                     'name' => 'required|min:3|max:50|unique:labels,name',
                     'description' => 'required|min:10|max:300',
-                    'attention_level' => 'required', Rule::in(Label::ATTENTION_LEVEL)
+                    'attention_level' => Rule::in(Label::ATTENTION_LEVEL)
                 ];
             case 'PUT':
             case 'PATCH':
                 return [
                     'name' => 'required|min:3|max:50|unique:labels,name,' . $this->label->id,
                     'description' => 'required|min:10|max:300',
-                    'attention_level' => 'required', Rule::in(Label::ATTENTION_LEVEL)
+                    'attention_level' => Rule::in(Label::ATTENTION_LEVEL)
                 ];
             default:
                 break;
