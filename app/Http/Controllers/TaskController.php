@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskValidation;
-use App\Status;
+use App\TaskStatus as Status;
 use App\Task;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -66,17 +66,12 @@ class TaskController extends Controller
         $validatedData = $request->validated();
         $task = Task::make($validatedData);
 
-        $user = $request->user();
-        $task->creator()->associate($user);
+        $task->creator()->associate($request->user());
+        $task->status()->associate($request->status_id);
+        $task->save();
 
-        $status = Status::find($request->status_id) ?? Status::create(['name' => 'new']);
-        $task->status()->associate($status)->save();
-
-        $assignees = $request->assignees;
-        $task->assignees()->sync($assignees);
-
-        $labels = $request->labels;
-        $task->labels()->sync($labels);
+        $task->assignees()->sync($request->assignees);
+        $task->labels()->sync($request->labels);
 
         flash("Task \"$task->name\" was created successfully!")->success()->important();
 
@@ -121,14 +116,19 @@ class TaskController extends Controller
         $validatedData = $request->validated();
         $task->update($validatedData);
 
+<<<<<<< HEAD
         $status = Status::find($request->status_id);
         $task->status()->associate($status)->save();
 
         $assignees = $request->assignees;
         $task->assignees()->sync($assignees);
+=======
+        $task->status()->associate($request->status_id);
+        $task->save();
+>>>>>>> checkout1
 
-        $labels = $request->labels;
-        $task->labels()->sync($labels);
+        $task->assignees()->sync($request->assignees);
+        $task->labels()->sync($request->labels);
 
         flash("Task \"$task->name\" was updated successfully!")->success()->important();
 

@@ -1,5 +1,3 @@
-
-
 <div class="custom-bottom">
     <div class="ui one column grid">
         <div class="column">

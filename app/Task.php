@@ -19,7 +19,7 @@ class Task extends Model implements ICommentable
 
     public function status()
     {
-        return $this->belongsTo('App\Status');
+        return $this->belongsTo('App\TaskStatus');
     }
 
     public function creator()

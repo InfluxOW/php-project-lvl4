@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Status;
+use App\TaskStatus as Status;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
