@@ -115,21 +115,8 @@ class TaskController extends Controller
         $validatedData = $request->validated();
         $task->update($validatedData);
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        $status = Status::find($request->status_id);
-        $task->status()->associate($status)->save();
-
-        $assignees = $request->assignees;
-        $task->assignees()->sync($assignees);
-=======
         $task->status()->associate($request->status_id);
         $task->save();
->>>>>>> checkout1
-=======
-        $task->status()->associate($request->status_id);
-        $task->save();
->>>>>>> test
 
         $task->assignees()->sync($request->assignees);
         $task->labels()->sync($request->labels);
