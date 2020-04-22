@@ -2,6 +2,7 @@
 
 @section('content')
 <x-errors/>
+
 <div class="card text-center shadow-lg">
     <div class="card-header">
         <div class="badge badge-info">
@@ -18,12 +19,10 @@
     </div>
 </div>
 
-
 <hr>
 <h4>{{__('Comments')}}</h4>
 
 <x-comments :model='$task'/>
-
 @endsection('content')
 
 

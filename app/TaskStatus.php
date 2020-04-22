@@ -26,6 +26,8 @@ class TaskStatus extends Model
         return $query->orderBy(static::CREATED_AT, 'desc');
     }
 
+    //Boot
+
     protected static function boot()
     {
         parent::boot();

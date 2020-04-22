@@ -14,9 +14,9 @@
         <tr class="d-flex">
             <th class="col-md-1">#</th>
             <th class="col-md-2">{{ __('Name') }}</th>
-            <th class="col-md-1">{{ __('Status') }}</th>
+            <th class="col-md-2">{{ __('Status') }}</th>
             <th class="col-md-1">{{ __('Creator') }}</th>
-            <th class="col-md-3">{{ __('Assignees') }}</th>
+            <th class="col-md-2">{{ __('Assignees') }}</th>
             <th class="col-md">{{ __('Created At') }}</th>
             @auth
                 <th class="col-md-2">{{ __('Actions') }}</th>
@@ -30,7 +30,7 @@
                 <td class="col-md-2">
                     <a href="{{ route('tasks.show', compact('task')) }}">{{ $task->name }}</a>
                 </td>
-                <td class="col-md-1">
+                <td class="col-md-2">
                     <div class="badge badge-info">
                         {{ $task->status->name }}
                     </div>
@@ -38,7 +38,7 @@
                 <td class="col-md-1">
                     <a href="{{ route('users.show', $task->creator) }}">{{ $task->creator->name }}</a>
                 </td>
-                <td class="col-md-3">
+                <td class="col-md-2">
                     @if ($task->assignees->count() >= 2)
                         <ul class="list-group list-group-flush">
                             @forelse ($task->assignees as $assignee)

@@ -114,8 +114,7 @@ class TaskController extends Controller
         $this->authorize($task);
 
         $validatedData = $request->validated();
-        $task->update($validatedData);
-
+        $task->fill($validatedData);
         $task->status()->associate($request->status_id);
         $task->save();
 

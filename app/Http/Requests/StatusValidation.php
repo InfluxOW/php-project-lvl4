@@ -23,8 +23,21 @@ class StatusValidation extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required|min:3|max:30|unique:task_statuses,name',
-        ];
+        switch ($this->method()) {
+            case 'GET':
+            case 'DELETE':
+                return [];
+            case 'POST':
+                return [
+                    'name' => 'required|min:3|max:30|unique:task_statuses,name'
+                ];
+            case 'PUT':
+            case 'PATCH':
+                return [
+                    'name' => 'required|min:3|max:30|unique:task_statuses,name' . $this->task_status->id,
+                ];
+            default:
+                break;
+        }
     }
 }

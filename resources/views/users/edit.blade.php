@@ -26,4 +26,5 @@
             </div>
         </div>
     </div>
+{{ Form::close() }}
 @endsection('content')
