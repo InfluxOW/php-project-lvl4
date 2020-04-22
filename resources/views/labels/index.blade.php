@@ -31,7 +31,6 @@
                                 </div>
                             </div>
                         </td>
-
                     @endauth
                 </tr>
             @endforeach
