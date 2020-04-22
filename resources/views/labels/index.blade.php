@@ -11,7 +11,7 @@
                 <th class="col-md-4">{{ __('Description') }}</th>
                 <th class="col-md">{{ __('Created At') }}</th>
                 @auth
-                    <th class="col-md-2">{{ _('Actions') }}</th>
+                    <th class="col-md-2">{{ __('Actions') }}</th>
                 @endauth
             </tr>
         </thead>
