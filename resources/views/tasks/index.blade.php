@@ -17,13 +17,13 @@
         <thead>
             <tr>
                 <th class="one wide">#</th>
-                <th class="two wide">Name</th>
-                <th class="two wide">Status</th>
-                <th class="two wide">Creator</th>
-                <th class="four wide">Assignees</th>
-                <th class="two wide">Created At</th>
+                <th class="two wide">{{ __('Name') }}</th>
+                <th class="two wide">{{ __('Status') }}</th>
+                <th class="two wide">{{ __('Creator') }}</th>
+                <th class="four wide">{{ __('Assignees') }}</th>
+                <th class="two wide">{{ __('Created At') }}</th>
                 @auth
-                    <th class="two wide">Actions</th>
+                    <th class="two wide">{{ __('Actions') }}</th>
                 @endauth
             </tr>
         </thead>
@@ -65,7 +65,7 @@
                             <div class="two ui buttons">
                                 <a href="{{ route('tasks.edit', $task) }}" class="ui primary button">{{ __('Edit') }}</a>
                                 @can('delete', $task)
-                                    <a href="{{ route('tasks.destroy', $task) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="ui button">{{ __('Delete') }}</a>
+                                    <a href="{{ route('tasks.destroy', $task) }}" data-confirm="{{ __("Are you sure?") }}" data-method="delete" rel="nofollow" class="ui button">{{ __('Delete') }}</a>
                                 @endcan
                             </div>
                         </td>

@@ -69,7 +69,6 @@ class TaskController extends Controller
         $task->creator()->associate($request->user());
         $task->status()->associate($request->status_id);
         $task->save();
-
         $task->assignees()->sync($request->assignees);
         $task->labels()->sync($request->labels);
 
@@ -117,6 +116,7 @@ class TaskController extends Controller
         $task->update($validatedData);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         $status = Status::find($request->status_id);
         $task->status()->associate($status)->save();
 
@@ -126,6 +126,10 @@ class TaskController extends Controller
         $task->status()->associate($request->status_id);
         $task->save();
 >>>>>>> checkout1
+=======
+        $task->status()->associate($request->status_id);
+        $task->save();
+>>>>>>> test
 
         $task->assignees()->sync($request->assignees);
         $task->labels()->sync($request->labels);

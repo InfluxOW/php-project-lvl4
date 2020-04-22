@@ -19,5 +19,5 @@
         {{ $label->name }}
     </a>
 @empty
-<div><small>No labels!</small></div>
+    <div><small>{{ __('No labels!') }}</small></div>
 @endforelse

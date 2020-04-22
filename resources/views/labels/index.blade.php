@@ -8,11 +8,11 @@
         <thead>
             <tr>
                 <th class="one wide">#</th>
-                <th class="two wide">Name</th>
-                <th class="seven wide">Description</th>
-                <th class="two wide">Created At</th>
+                <th class="two wide">{{ __('Name') }}</th>
+                <th class="seven wide">{{ __('Description') }}</th>
+                <th class="two wide">{{ __('Created At') }}</th>
                 @auth
-                    <th class="four wide">Actions</th>
+                    <th class="four wide">{{ __('Actions') }}</th>
                 @endauth
             </tr>
         </thead>

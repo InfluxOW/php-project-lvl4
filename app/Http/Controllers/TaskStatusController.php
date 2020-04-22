@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StatusValidation;
+use App\Http\Requests\TaskStatusValidation as StatusValidation;
 use App\TaskStatus as Status;
 
 class TaskStatusController extends Controller
