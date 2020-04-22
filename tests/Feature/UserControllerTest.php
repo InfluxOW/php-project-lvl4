@@ -19,6 +19,26 @@ class UserControllerTest extends TestCase
         $this->badData = ['name' => ''];
     }
 
+    //Testing actions as a guest
+
+    public function testGuestShow()
+    {
+        $response = $this->get(route('users.show', $this->user));
+        $response->assertRedirect(route('login'));
+    }
+
+    public function testGuestEdit()
+    {
+        $response = $this->get(route('users.edit', $this->user));
+        $response->assertRedirect(route('login'));
+    }
+
+    public function testGuestUpdate()
+    {
+        $response = $this->patch(route('users.show', $this->user), $this->goodData);
+        $response->assertRedirect(route('login'));
+    }
+
     //Testing actions as a user
 
     public function testUserShow()
