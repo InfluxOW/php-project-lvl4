@@ -7,11 +7,11 @@
         <thead class="thead-light">
             <tr class="d-flex">
                 <th class="col-md-1">#</th>
-                <th class="col-md-3">Name</th>
-                <th class="col-md-4">Description</th>
-                <th class="col-md">Created At</th>
+                <th class="col-md-3">{{ __('Name') }}</th>
+                <th class="col-md-4">{{ __('Description') }}</th>
+                <th class="col-md">{{ __('Created At') }}</th>
                 @auth
-                    <th class="col-md-2">Actions</th>
+                    <th class="col-md-2">{{ _('Actions') }}</th>
                 @endauth
             </tr>
         </thead>

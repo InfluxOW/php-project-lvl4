@@ -10,8 +10,6 @@ use Tests\TestCase;
 
 class LabelControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected function setUp(): void
     {
         parent::setUp();

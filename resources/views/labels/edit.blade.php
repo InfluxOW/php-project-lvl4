@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="display-4 mb-5">Edit Label</h1>
+<h1 class="display-4 mb-5">{{ __('Edit Label') }}</h1>
 
 {{ Form::open(['url' => route('labels.update', $label), 'method' => 'PATCH']) }}
     @include('labels._form')

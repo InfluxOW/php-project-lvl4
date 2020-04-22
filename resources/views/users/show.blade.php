@@ -4,16 +4,16 @@
 <x-errors/>
     <div class="row">
         <div class="col-8">
-            <h6 class="text-center lead">Tasks in which user is involved</h6>
+            <h6 class="text-center lead">{{ __('Tasks in which user is involved') }}</h6>
             <hr>
             <table class="table text-center mt-2">
                 <thead class="thead-light">
                     <tr class="d-flex">
                         <th class="col-md-1">#</th>
-                        <th class="col-md-2">Name</th>
-                        <th class="col-md-5">Description</th>
-                        <th class="col-md-2">Status</th>
-                        <th class="col-md-2">Created At</th>
+                        <th class="col-md-2">{{ __('Name') }}</th>
+                        <th class="col-md-5">{{ __('Description') }}</th>
+                        <th class="col-md-2">{{ __('Status') }}</th>
+                        <th class="col-md-2">{{ __('Created At') }}</th>
                     </tr>
                 </thead>
                 <tbody class="section section-step">
@@ -39,7 +39,7 @@
             <h3>{{ $user->name }}</h3>
             <img src="{{ isset($user->image) ? $user->image->url : 'https://udemy-project-1.s3.eu-west-3.amazonaws.com/avatars/default-user-image.png' }}" class="img-thumbnail avatar">
             <p>
-                Completed tasks count: {{ count($user->assignedTasks()->withTrashed()->completedTasks()->get()) }}
+                {{ __('Completed tasks count') }}: {{ count($user->assignedTasks()->withTrashed()->completedTasks()->get()) }}
             </p>
         </div>
     </div>

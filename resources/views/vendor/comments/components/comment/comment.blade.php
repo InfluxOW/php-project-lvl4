@@ -16,17 +16,17 @@
 
     <p>
         <button data-toggle="modal" data-target="#reply-modal-{{ $comment->id }}"
-                class="btn btn-sm btn-link text-uppercase">Reply
+                class="btn btn-sm btn-link text-uppercase">{{ __('Reply') }}
         </button>
         @can('edit', $comment)
             <button data-toggle="modal" data-target="#comment-modal-{{ $comment->id }}"
-                    class="btn btn-sm btn-link text-uppercase">Edit
+                    class="btn btn-sm btn-link text-uppercase">{{ __('Edit') }}
             </button>
         @endcan
         @can('delete', $comment)
             <a href="#"
                 onclick="event.preventDefault();document.getElementById('comment-delete-form-{{ $comment->id }}').submit();"
-                class="btn btn-sm btn-link text-danger text-uppercase">Delete</a>
+                class="btn btn-sm btn-link text-danger text-uppercase">{{ __('Delete') }}</a>
     <form id="comment-delete-form-{{ $comment->id }}"
             action="{{route('comments.delete', $comment->id)  }}" method="POST" style="display: none;">
         @method('DELETE')

@@ -13,7 +13,7 @@ $factory->define(Task::class, function (Faker $faker) {
 });
 
 $factory->afterMaking(App\Task::class, function ($task) {
-    $task->status()->associate(App\Status::all()->random());
+    $task->status()->associate(App\TaskStatus::all()->random());
     $task->creator()->associate(App\User::all()->random());
 });
 

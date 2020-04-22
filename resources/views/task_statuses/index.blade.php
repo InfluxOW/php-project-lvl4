@@ -7,10 +7,10 @@
         <thead class="thead-light">
             <tr class="d-flex">
                 <th class="col-md-1">#</th>
-                <th class="col-md-3">Name</th>
-                <th class="col-md">Created At</th>
+                <th class="col-md-3">{{ __('Name') }}</th>
+                <th class="col-md">{{ __('Created At') }}</th>
                 @auth
-                    <th class="col-md-2">Actions</th>
+                    <th class="col-md-2">{{ __('Actions') }}</th>
                 @endauth
             </tr>
         </thead>
@@ -24,8 +24,8 @@
                         <td class="col-md-2">
                             <div class="container">
                                 <div class="row">
-                                    <a href="{{ route('statuses.edit', $status) }}" class="btn btn-primary col-6">{{ __('Edit') }}</a>
-                                    <a href="{{ route('statuses.destroy', $status) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="btn btn-primary col-6">{{ __('Delete') }}</a>
+                                    <a href="{{ route('task_statuses.edit', $status) }}" class="btn btn-primary col-6">{{ __('Edit') }}</a>
+                                    <a href="{{ route('task_statuses.destroy', $status) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="btn btn-primary col-6">{{ __('Delete') }}</a>
                                 </div>
                             </div>
                         </td>
@@ -35,7 +35,7 @@
         </tbody>
     </table>
     @auth
-        <a href="{{ route('statuses.create') }}" class="btn btn-primary btn-sm btn-block" role="button" aria-pressed="true">{{ __('Add status') }}</a>
+        <a href="{{ route('task_statuses.create') }}" class="btn btn-primary btn-sm btn-block" role="button" aria-pressed="true">{{ __('Add status') }}</a>
     @endauth
 
     <div class="mt-2">{{$statuses->links()}}</div>

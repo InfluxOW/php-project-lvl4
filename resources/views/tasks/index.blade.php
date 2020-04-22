@@ -13,13 +13,13 @@
     <thead class="thead-light">
         <tr class="d-flex">
             <th class="col-md-1">#</th>
-            <th class="col-md-2">Name</th>
-            <th class="col-md-1">Status</th>
-            <th class="col-md-1">Creator</th>
-            <th class="col-md-3">Assignees</th>
-            <th class="col-md">Created At</th>
+            <th class="col-md-2">{{ __('Name') }}</th>
+            <th class="col-md-1">{{ __('Status') }}</th>
+            <th class="col-md-1">{{ __('Creator') }}</th>
+            <th class="col-md-3">{{ __('Assignees') }}</th>
+            <th class="col-md">{{ __('Created At') }}</th>
             @auth
-                <th class="col-md-2">Actions</th>
+                <th class="col-md-2">{{ __('Actions') }}</th>
             @endauth
         </tr>
     </thead>

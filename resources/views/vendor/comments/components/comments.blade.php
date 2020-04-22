@@ -9,7 +9,7 @@
     $comments = $model->commentsWithChildrenAndCommenter()->parentless()->get();
 @endphp
 @if($count < 1)
-    <p class="lead">There are no comments yet.</p>
+    <p class="lead">{{ __('There are no comments yet') }}.</p>
 @endif
 <ul class="list-unstyled">
     @foreach($comments as $comment)

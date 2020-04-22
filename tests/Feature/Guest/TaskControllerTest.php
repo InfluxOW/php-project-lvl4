@@ -3,7 +3,7 @@
 namespace Tests\Feature\Guest;
 
 use App\Label;
-use App\Status;
+use App\TaskStatus as Status;
 use App\Task;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,8 +13,6 @@ use Tests\TestCase;
 
 class TaskControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected function setUp(): void
     {
         parent::setUp();

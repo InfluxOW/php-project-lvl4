@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="display-4 mb-5">Add New Task</h1>
+<h1 class="display-4 mb-5">{{ __('Add New Task') }}</h1>
 
 {{ Form::open(['url' => route('tasks.store')]) }}
     @include('tasks._form')

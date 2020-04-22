@@ -23,8 +23,6 @@
 <h4>{{__('Comments')}}</h4>
 
 <x-comments :model='$task'/>
-    {{-- <x-comment-form :route="route('posts.comments.store', compact('post'))"/> --}}
-    {{-- <x-comment-list :comments="$post->comments()->with('user', 'tags')->paginate(5)"/> --}}
 
 @endsection('content')
 

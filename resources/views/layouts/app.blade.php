@@ -29,8 +29,8 @@
                     <li class="nav-item {{ (request()->is('tasks') || request()->is('tasks/*')) ? 'active' : '' }}">
                         <a class="p-2 nav-link" href="{{ route('tasks.index') }}">{{ __('Tasks') }}</a>
                     </li>
-                    <li class="nav-item {{ (request()->is('statuses') || request()->is('statuses/*')) ? 'active' : '' }}">
-                        <a class="p-2 nav-link" href="{{ route('statuses.index') }}">{{ __('Statuses') }}</a>
+                    <li class="nav-item {{ (request()->is('task_statuses') || request()->is('task_statuses/*')) ? 'active' : '' }}">
+                        <a class="p-2 nav-link" href="{{ route('task_statuses.index') }}">{{ __('Statuses') }}</a>
                     </li>
                     <li class="nav-item {{ (request()->is('labels') || request()->is('labels/*')) ? 'active' : '' }}">
                         <a class="p-2 nav-link" href="{{ route('labels.index') }}">{{ __('Labels') }}</a>

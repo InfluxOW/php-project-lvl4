@@ -2,10 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Status;
+use App\TaskStatus;
 use Faker\Generator as Faker;
 
-$factory->define(Status::class, function (Faker $faker) {
+$factory->define(TaskStatus::class, function (Faker $faker) {
     return [
         'name' => $faker->words(2, true),
     ];
@@ -13,22 +13,22 @@ $factory->define(Status::class, function (Faker $faker) {
 
 //States
 
-$factory->state(Status::class, 'new', function () {
+$factory->state(TaskStatus::class, 'new', function () {
     return [
         'name' => 'new',
     ];
 });
-$factory->state(Status::class, 'processing', function () {
+$factory->state(TaskStatus::class, 'processing', function () {
     return [
         'name' => 'processing',
     ];
 });
-$factory->state(Status::class, 'testing', function () {
+$factory->state(TaskStatus::class, 'testing', function () {
     return [
         'name' => 'testing',
     ];
 });
-$factory->state(Status::class, 'completed', function () {
+$factory->state(TaskStatus::class, 'completed', function () {
     return [
         'name' => 'completed',
     ];
