@@ -24,8 +24,8 @@
                     @auth
                         <td>
                             <div class="two ui buttons">
-                                <a href="{{ route('statuses.edit', $status) }}" class="ui primary button"">{{ __('Edit') }}</a>
-                                <a href="{{ route('statuses.destroy', $status) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="ui button">{{ __('Delete') }}</a>
+                                <a href="{{ route('task_statuses.edit', $status) }}" class="ui primary button"">{{ __('Edit') }}</a>
+                                <a href="{{ route('task_statuses.destroy', $status) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="ui button">{{ __('Delete') }}</a>
                             </div>
                         </td>
                     @endauth
@@ -35,11 +35,11 @@
         </tbody>
     </table>
     @auth
-        <a href="{{ route('statuses.create') }}" class="ui positive button fluid" role="button" aria-pressed="true">{{ __('Add status') }}</a>
+        <a href="{{ route('task_statuses.create') }}" class="ui positive button fluid" role="button" aria-pressed="true">{{ __('Add status') }}</a>
     @endauth
 
     {{-- 5 is number of items per page --}}
-    @if (count(App\Status::all()) > 5)
+    @if (count(App\TaskStatus::all()) > 5)
     <div class="custom-top">
         <div class="ui floated pagination menu">
             {{ $statuses->links('pagination::semantic-ui') }}

@@ -10,8 +10,6 @@ use Illuminate\Support\Arr;
 
 class UserControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected function setUp(): void
     {
         parent::setUp();

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StatusValidation;
-use App\Status;
+use App\Http\Requests\TaskStatusValidation as StatusValidation;
+use App\TaskStatus as Status;
 
-class StatusController extends Controller
+class TaskStatusController extends Controller
 {
     public function __construct()
     {
@@ -21,7 +21,7 @@ class StatusController extends Controller
     {
         $statuses = Status::latest()->paginate(5);
 
-        return view('statuses.index', compact('statuses'));
+        return view('task_statuses.index', compact('statuses'));
     }
 
     /**
@@ -33,9 +33,9 @@ class StatusController extends Controller
     {
         $this->authorize(Status::class);
 
-        $status = new Status();
+        $task_status = new Status();
 
-        return view('statuses.create', compact('status'));
+        return view('task_statuses.create', compact('task_status'));
     }
 
     /**
@@ -49,11 +49,11 @@ class StatusController extends Controller
         $this->authorize(Status::class);
 
         $validatedData = $request->validated();
-        $status = Status::create($validatedData);
+        $task_status = Status::create($validatedData);
 
-        flash("Status \"$status->name\" was created successfully!")->success()->important();
+        flash("Status \"$task_status->name\" was created successfully!")->success()->important();
 
-        return redirect()->route('statuses.index');
+        return redirect()->route('task_statuses.index');
     }
 
     /**
@@ -62,11 +62,11 @@ class StatusController extends Controller
      * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function edit(Status $status)
+    public function edit(Status $task_status)
     {
-        $this->authorize($status);
+        $this->authorize($task_status);
 
-        return view('statuses.edit', compact('status'));
+        return view('task_statuses.edit', compact('task_status'));
     }
 
     /**
@@ -76,16 +76,16 @@ class StatusController extends Controller
      * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function update(StatusValidation $request, Status $status)
+    public function update(StatusValidation $request, Status $task_status)
     {
-        $this->authorize($status);
+        $this->authorize($task_status);
 
         $validatedData = $request->validated();
-        $status->update($validatedData);
+        $task_status->update($validatedData);
 
-        flash("Status \"$status->name\" was updated successfully!")->success()->important();
+        flash("Status \"$task_status->name\" was updated successfully!")->success()->important();
 
-        return redirect()->route('statuses.index', $status);
+        return redirect()->route('task_statuses.index', $task_status);
     }
 
     /**
@@ -94,14 +94,14 @@ class StatusController extends Controller
      * @param  \App\Status  $status
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Status $status)
+    public function destroy(Status $task_status)
     {
-        $this->authorize($status);
+        $this->authorize($task_status);
 
-        $status->delete();
+        $task_status->delete();
 
-        flash("Status \"$status->name\" was deleted successfully!")->success()->important();
+        flash("Status \"$task_status->name\" was deleted successfully!")->success()->important();
 
-        return redirect()->route('statuses.index');
+        return redirect()->route('task_statuses.index');
     }
 }

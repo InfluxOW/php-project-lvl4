@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StatusValidation extends FormRequest
+class TaskStatusValidation extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class StatusValidation extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:30|unique:statuses,name',
+            'name' => 'required|min:3|max:30|unique:task_statuses,name',
         ];
     }
 }

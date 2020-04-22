@@ -27,7 +27,7 @@
         <a class="helvetica bigger-font item {{ (request()->is('tasks') || request()->is('tasks/*')) ? 'active' : '' }}" href="{{ route('tasks.index') }}">
             {{ __('Tasks') }}
         </a>
-        <a class="helvetica bigger-font item {{ (request()->is('statuses') || request()->is('statuses/*')) ? 'active' : '' }}" href="{{ route('statuses.index') }}">
+        <a class="helvetica bigger-font item {{ (request()->is('task_statuses') || request()->is('task_statuses/*')) ? 'active' : '' }}" href="{{ route('task_statuses.index') }}">
             {{ __('Statuses') }}
         </a>
         <a class="helvetica bigger-font item {{ (request()->is('labels') || request()->is('labels/*')) ? 'active' : '' }}" href="{{ route('labels.index') }}">

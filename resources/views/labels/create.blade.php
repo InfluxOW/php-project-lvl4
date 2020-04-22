@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1 class="display-4">Add New Label</h1>
+<h1 class="display-4">{{ __('Add New Label') }}</h1>
 
 {{ Form::open(['url' => route('labels.store'), 'class' => 'ui form']) }}
     @include('labels._form')

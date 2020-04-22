@@ -6,23 +6,23 @@
                     @method('PUT')
                     @csrf
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Comment</h5>
+                        <h5 class="modal-title">{{ __('Edit Comment') }}</h5>
                         <button type="button" class="close" data-dismiss="modal">
                             <span>&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="message">Update your message here:</label>
+                            <label for="message">{{ __('Update your message here') }}:</label>
                             <textarea required class="form-control" name="message"
                                       rows="3">{{ $comment->comment }}</textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-outline-secondary text-uppercase"
-                                data-dismiss="modal">Cancel
+                                data-dismiss="modal">{{ __('Cancel') }}
                         </button>
-                        <button type="submit" class="btn btn-sm btn-outline-success text-uppercase">Update</button>
+                        <button type="submit" class="btn btn-sm btn-outline-success text-uppercase">{{ __('Update') }}</button>
                     </div>
                 </form>
             </div>
@@ -36,22 +36,22 @@
             <form method="POST" action="{{ route('comments.reply', $comment->id) }}">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title">Reply to Comment</h5>
+                    <h5 class="modal-title">{{ __('Reply to Comment') }}</h5>
                     <button type="button" class="close" data-dismiss="modal">
                         <span>&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label for="message">Enter your message here:</label>
+                        <label for="message">{{ __('Enter your message here') }}:</label>
                         <textarea required class="form-control" name="message" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-outline-secondary text-uppercase" data-dismiss="modal">
-                        Cancel
+                        {{ __('Cancel') }}
                     </button>
-                    <button type="submit" class="btn btn-sm btn-outline-success text-uppercase">Reply</button>
+                    <button type="submit" class="btn btn-sm btn-outline-success text-uppercase">{{ __('Reply') }}</button>
                 </div>
             </form>
         </div>

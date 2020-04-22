@@ -17,15 +17,15 @@
             <div class="actions">
                 <p>
                     <a data-toggle="modal" data-target="#reply-modal-{{ $comment->id }}"
-                        class="reply">Reply
+                        class="reply">{{ __('Reply') }}
                     </a>
                     @can('edit', $comment)
                     <a data-toggle="modal" data-target="#comment-modal-{{ $comment->id }}"
-                        class="edit">Edit
+                        class="edit">{{ __('Edit') }}
                     </a>
                     @endcan
                     @can('delete', $comment)
-                    <a href="{{ route('comments.delete', $comment) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">Delete</a>
+                    <a href="{{ route('comments.delete', $comment) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow">{{ __('Delete') }}</a>
                     <form id="comment-delete-form-{{ $comment->id }}"
                         action="{{route('comments.delete', $comment->id)  }}" method="POST" style="display: none;">
                         @method('DELETE')

@@ -2,16 +2,14 @@
 
 namespace Tests\Feature;
 
-use App\Status;
+use App\TaskStatus as Status;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
 
-class StatusControllerTest extends TestCase
+class TaskStatusControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -25,32 +23,32 @@ class StatusControllerTest extends TestCase
 
     public function testGuestStore()
     {
-        $response = $this->post(route('statuses.store'), $this->goodData);
+        $response = $this->post(route('task_statuses.store'), $this->goodData);
 
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('statuses', $this->goodData);
+        $this->assertDatabaseMissing('task_statuses', $this->goodData);
     }
 
     public function testGuestEdit()
     {
-        $response = $this->get(route('statuses.edit', $this->status));
+        $response = $this->get(route('task_statuses.edit', $this->status));
         $response->assertRedirect(route('login'));
     }
 
     public function testGuestUpdate()
     {
-        $response = $this->patch(route('statuses.update', $this->status), $this->goodData);
+        $response = $this->patch(route('task_statuses.update', $this->status), $this->goodData);
 
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseMissing('statuses', $this->goodData);
+        $this->assertDatabaseMissing('task_statuses', $this->goodData);
     }
 
     public function testGuestDelete()
     {
-        $response = $this->delete(route('statuses.destroy', $this->status));
+        $response = $this->delete(route('task_statuses.destroy', $this->status));
 
         $response->assertRedirect(route('login'));
-        $this->assertDatabaseHas('statuses', ['id' => $this->status->id]);
+        $this->assertDatabaseHas('task_statuses', ['id' => $this->status->id]);
     }
 
     //Testing actions as a user
@@ -58,59 +56,59 @@ class StatusControllerTest extends TestCase
     public function testUserStoreSuccess()
     {
         $this->actingAs($this->user())
-            ->post(route('statuses.store'), $this->goodData)
+            ->post(route('task_statuses.store'), $this->goodData)
             ->assertSessionHasNoErrors()
             ->assertRedirect();
-        $this->assertDatabaseHas('statuses', $this->goodData);
+        $this->assertDatabaseHas('task_statuses', $this->goodData);
     }
 
     public function testUserStoreFail()
     {
         $this->actingAs($this->user())
-            ->post(route('statuses.index'), $this->badData)
+            ->post(route('task_statuses.index'), $this->badData)
             ->assertSessionHasErrors()
             ->assertRedirect();
-        $this->assertDatabaseMissing('statuses', $this->badData);
+        $this->assertDatabaseMissing('task_statuses', $this->badData);
     }
 
     public function testUserEditSuccess()
     {
-        $response = $this->actingAs($this->user())->get(route('statuses.edit', $this->status));
+        $response = $this->actingAs($this->user())->get(route('task_statuses.edit', $this->status));
         $response->assertOk();
     }
 
     public function testUserUpdateSuccess()
     {
         $this->actingAs($this->user())
-            ->patch(route('statuses.update', $this->status), $this->goodData)
+            ->patch(route('task_statuses.update', $this->status), $this->goodData)
             ->assertSessionHasNoErrors()
             ->assertRedirect();
-        $this->assertDatabaseHas("statuses", $this->goodData);
+        $this->assertDatabaseHas("task_statuses", $this->goodData);
     }
 
     public function testUserUpdateFail()
     {
         $this->actingAs($this->user())
-            ->patch(route('statuses.update', $this->status), $this->badData)
+            ->patch(route('task_statuses.update', $this->status), $this->badData)
             ->assertSessionHasErrors()
             ->assertRedirect();
-        $this->assertDatabaseMissing("statuses", $this->badData);
+        $this->assertDatabaseMissing("task_statuses", $this->badData);
     }
 
     public function testUserDeleteSuccess()
     {
         $this->actingAs($this->user())
-            ->delete(route('statuses.destroy', $this->status))
+            ->delete(route('task_statuses.destroy', $this->status))
             ->assertSessionHasNoErrors()
             ->assertRedirect();
-        $this->assertSoftDeleted("statuses", ['id' => $this->status->id]);
+        $this->assertSoftDeleted("task_statuses", ['id' => $this->status->id]);
     }
 
     //Testing actions that both users and guests are able to perform
 
     public function testIndex()
     {
-        $response = $this->get(route('statuses.index'));
+        $response = $this->get(route('task_statuses.index'));
         $response->assertOk();
     }
 }

@@ -6,7 +6,7 @@
     <div class="row">
         <div class="ten wide column">
             <h4 class="ui center aligned header">
-                Tasks in which the user is involved
+                {{ __('Tasks in which the user is involved') }}
             </h4>
             <hr>
             <div class="zero-top custom-bottom">
@@ -14,10 +14,10 @@
                     <thead class="full-width">
                         <tr>
                             <th class="one wide">#</th>
-                            <th class="three wide">Name</th>
-                            <th class="six wide">Description</th>
-                            <th class="two wide">Status</th>
-                            <th class="four wide">Created At</th>
+                            <th class="three wide">{{ __('Name') }}</th>
+                            <th class="six wide">{{ __('Description') }}</th>
+                            <th class="two wide">{{ __('Status') }}</th>
+                            <th class="four wide">{{ __('Created At') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +46,7 @@
             <h3 class="ui centered header">{{ $user->name }}</h3>
             <img src="{{ isset($user->image) ? $user->image->url : 'https://udemy-project-1.s3.eu-west-3.amazonaws.com/avatars/default-user-image.png' }}" class="ui centered bordered small image">
             <div class="ui center aligned basic segment">
-                Completed tasks count: {{ count($user->assignedTasks()->withTrashed()->completedTasks()->get()) }}
+                {{ __('Completed tasks count') }}: {{ count($user->assignedTasks()->withTrashed()->completedTasks()->get()) }}
                 </div>
         </div>
     </div>
