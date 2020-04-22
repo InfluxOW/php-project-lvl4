@@ -5,7 +5,7 @@
 use App\TaskStatus as Status;
 use Faker\Generator as Faker;
 
-$factory->define(TaskStatus::class, function (Faker $faker) {
+$factory->define(Status::class, function (Faker $faker) {
     return [
         'name' => $faker->words(2, true),
     ];
@@ -13,17 +13,17 @@ $factory->define(TaskStatus::class, function (Faker $faker) {
 
 //States
 
-$factory->state(TaskStatus::class, 'new', function () {
+$factory->state(Status::class, 'new', function () {
     return [
         'name' => 'new',
     ];
 });
-$factory->state(TaskStatus::class, 'processing', function () {
+$factory->state(Status::class, 'processing', function () {
     return [
         'name' => 'processing',
     ];
 });
-$factory->state(TaskStatus::class, 'testing', function () {
+$factory->state(Status::class, 'testing', function () {
     return [
         'name' => 'testing',
     ];
