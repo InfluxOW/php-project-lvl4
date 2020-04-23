@@ -11,6 +11,9 @@ class TaskStatus extends Model
     use SoftDeletes;
 
     protected $fillable = ['name'];
+    public const DEFAULT_STATUSES = [
+        'new', 'testing', 'processing', 'completed'
+    ];
 
     //Relations
 
@@ -35,7 +38,12 @@ class TaskStatus extends Model
         static::deleting(function ($status) {
             Task::whereHas('status', function ($query) use ($status) {
                 $query->where('id', $status->id);
-            })->delete();
+            })
+            ->get()
+            ->each(function ($task) {
+                $task->status()->associate(TaskStatus::where('name', 'new')->first());
+                $task->save();
+            });
         });
     }
 }

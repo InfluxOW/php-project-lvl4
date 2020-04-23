@@ -53,6 +53,9 @@ class StatusPolicy
      */
     public function update(User $user, Status $status)
     {
+        if (in_array($status->name, Status::DEFAULT_STATUSES)) {
+            return false;
+        }
         return true;
     }
 
@@ -65,6 +68,9 @@ class StatusPolicy
      */
     public function delete(User $user, Status $status)
     {
+        if (in_array($status->name, Status::DEFAULT_STATUSES)) {
+            return false;
+        }
         return true;
     }
 
