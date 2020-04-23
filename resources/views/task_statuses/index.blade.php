@@ -24,8 +24,12 @@
                     @auth
                         <td>
                             <div class="two ui buttons">
+                                @can('update', $status)
                                 <a href="{{ route('task_statuses.edit', $status) }}" class="ui primary button"">{{ __('Edit') }}</a>
+                                @endcan
+                                @can('delete', $status)
                                 <a href="{{ route('task_statuses.destroy', $status) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="ui button">{{ __('Delete') }}</a>
+                                @endcan
                             </div>
                         </td>
                     @endauth
