@@ -26,8 +26,7 @@ class TransformFiltrationRequestData
                         return implode(',', $item);
                     });
                 });
-                $queryString = $outcomingQuery->toArray();
-                return redirect()->route('tasks.index', $queryString);
+                return redirect()->route('tasks.index', $outcomingQuery->toArray());
             }
         }
         return $next($request);
