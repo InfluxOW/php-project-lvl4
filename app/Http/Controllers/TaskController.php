@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskValidation;
-use App\TaskStatus as Status;
 use App\Task;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -15,6 +14,7 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->only(['edit', 'update', 'create', 'store', 'destroy']);
+        $this->middleware('filtration')->only('index');
     }
 
     /**
@@ -24,6 +24,7 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
+        // dd($request->request, $request->query);
         $tasks = QueryBuilder::for(Task::class)
             ->latest()
             ->with('creator', 'assignees', 'status', 'labels')
@@ -140,19 +141,5 @@ class TaskController extends Controller
         flash("Task \"$task->name\" was deleted successfully!")->success()->important();
 
         return redirect()->route('tasks.index');
-    }
-
-    public function filtration(Request $request)
-    {
-        // $incomingQuery contains collection of the query string elements
-        $incomingQuery = collect($request->query->all());
-        // We're iterating over collection items and transforming nested arrays to strings
-        $outcomingQuery = $incomingQuery->map(function ($item) {
-            return collect($item)->map(function ($item) {
-                return implode(',', $item);
-            });
-        });
-
-        return redirect()->route('tasks.index', $outcomingQuery->toArray());
     }
 }
