@@ -38,12 +38,7 @@ class TaskStatus extends Model
         static::deleting(function ($status) {
             Task::whereHas('status', function ($query) use ($status) {
                 $query->where('id', $status->id);
-            })
-            ->get()
-            ->each(function ($task) {
-                $task->status()->associate(TaskStatus::where('name', 'new')->first());
-                $task->save();
-            });
+            })->delete();
         });
     }
 }

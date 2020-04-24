@@ -15,6 +15,7 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->only(['edit', 'update', 'create', 'store', 'destroy']);
+        $this->middleware('filtration')->only('index');
     }
 
     /**
@@ -141,19 +142,5 @@ class TaskController extends Controller
         flash("Task \"$task->name\" was deleted successfully!")->success()->important();
 
         return redirect()->route('tasks.index');
-    }
-
-    public function filtration(Request $request)
-    {
-        // $incomingQuery contains collection of the query string elements
-        $incomingQuery = collect($request->query->all());
-        // We're iterating over collection items and transforming nested arrays to strings
-        $outcomingQuery = $incomingQuery->map(function ($item) {
-            return collect($item)->map(function ($item) {
-                return implode(',', $item);
-            });
-        });
-
-        return redirect()->route('tasks.index', $outcomingQuery->toArray());
     }
 }

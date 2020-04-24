@@ -28,7 +28,7 @@
                                         <a href="{{ route('task_statuses.edit', $status) }}" class="btn btn-primary col-6">{{ __('Edit') }}</a>
                                     @endcan
                                     @can('delete', $status)
-                                        <a href="{{ route('task_statuses.destroy', $status) }}" data-confirm="Are you sure?" data-method="delete" rel="nofollow" class="btn btn-primary col-6">{{ __('Delete') }}</a>
+                                        <a href="{{ route('task_statuses.destroy', $status) }}" data-confirm="Are you sure? This action will also delete all tasks associated with this status." data-method="delete" rel="nofollow" class="btn btn-primary col-6">{{ __('Delete') }}</a>
                                     @endcan
                                 </div>
                             </div>
