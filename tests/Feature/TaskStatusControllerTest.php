@@ -15,14 +15,12 @@ class TaskStatusControllerTest extends TestCase
     {
         parent::setUp();
         $this->status = factory(Status::class)->create();
-
         $this->goodData = Arr::only(factory(Status::class)->make()->toArray(), ['name']);
-        $this->badData = ['name' => '12'];
     }
 
     //Testing actions as a user
 
-    public function testUserStoreSuccess()
+    public function testUserStore()
     {
         $this->actingAs($this->user())
             ->post(route('task_statuses.store'), $this->goodData)
@@ -31,22 +29,13 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseHas('task_statuses', $this->goodData);
     }
 
-    public function testUserStoreFail()
-    {
-        $this->actingAs($this->user())
-            ->post(route('task_statuses.index'), $this->badData)
-            ->assertSessionHasErrors()
-            ->assertRedirect();
-        $this->assertDatabaseMissing('task_statuses', $this->badData);
-    }
-
-    public function testUserEditSuccess()
+    public function testUserEdit()
     {
         $response = $this->actingAs($this->user())->get(route('task_statuses.edit', $this->status));
         $response->assertOk();
     }
 
-    public function testUserUpdateSuccess()
+    public function testUserUpdate()
     {
         $this->actingAs($this->user())
             ->patch(route('task_statuses.update', $this->status), $this->goodData)
@@ -55,16 +44,7 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseHas("task_statuses", $this->goodData);
     }
 
-    public function testUserUpdateFail()
-    {
-        $this->actingAs($this->user())
-            ->patch(route('task_statuses.update', $this->status), $this->badData)
-            ->assertSessionHasErrors()
-            ->assertRedirect();
-        $this->assertDatabaseMissing("task_statuses", $this->badData);
-    }
-
-    public function testUserDeleteSuccess()
+    public function testUserDelete()
     {
         $this->actingAs($this->user())
             ->delete(route('task_statuses.destroy', $this->status))

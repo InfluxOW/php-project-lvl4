@@ -16,7 +16,6 @@ class UserControllerTest extends TestCase
 
         $this->user = factory(User::class)->create();
         $this->goodData = Arr::only(factory(User::class)->make()->toArray(), ['name']);
-        $this->badData = ['name' => ''];
     }
 
     //Testing actions as a user
@@ -27,31 +26,17 @@ class UserControllerTest extends TestCase
         $response->assertOk();
     }
 
-    public function testUserEditFail()
-    {
-        $response = $this->actingAs($this->user())->get(route('users.edit', $this->user));
-        $response->assertForbidden();
-    }
-
-    public function testUserEditSuccess()
+    public function testUserEdit()
     {
         $response = $this->actingAs($this->user)->get(route('users.edit', $this->user));
         $response->assertOk();
     }
 
-    public function testUserUpdateSuccess()
+    public function testUserUpdate()
     {
         $response = $this->actingAs($this->user)->patch(route('users.show', $this->user), $this->goodData);
         $response->assertSessionHasNoErrors()
             ->assertRedirect();
         $this->assertDatabaseHas("users", $this->goodData);
-    }
-
-    public function testUserUpdateFail()
-    {
-        $response = $this->actingAs($this->user)->patch(route('users.show', $this->user), $this->badData);
-        $response->assertSessionHasErrors()
-            ->assertRedirect();
-        $this->assertDatabaseMissing("users", $this->badData);
     }
 }

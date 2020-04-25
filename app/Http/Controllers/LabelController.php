@@ -51,7 +51,7 @@ class LabelController extends Controller
         $validatedData = $request->validated();
         $label = Label::create($validatedData);
 
-        flash("Label \"$label->name\" was created successfully!")->success()->important();
+        flash(__("Label was created successfully!"))->success()->important();
 
         return redirect()->route('labels.index');
     }
@@ -83,7 +83,7 @@ class LabelController extends Controller
         $validatedData = $request->validated();
         $label->update($validatedData);
 
-        flash("Label \"$label->name\" was updated successfully!")->success()->important();
+        flash(__("Label was updated successfully!"))->success()->important();
 
         return redirect()->route('labels.index', $label);
     }
@@ -100,7 +100,7 @@ class LabelController extends Controller
 
         $label->delete();
 
-        flash("Label \"$label->name\" was deleted successfully!")->success()->important();
+        flash(__("Label was deleted successfully!"))->success()->important();
 
         return redirect()->route('labels.index');
     }

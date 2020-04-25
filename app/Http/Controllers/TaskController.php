@@ -15,7 +15,7 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->only(['edit', 'update', 'create', 'store', 'destroy']);
-        $this->middleware('filtration')->only('index');
+        // $this->middleware('filtration')->only('index');
     }
 
     /**
@@ -25,6 +25,21 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
+        if ($request->has('filter')) {
+            $incomingQuery = $request->query->all();
+            $implodable = collect($incomingQuery['filter'])->every(function ($value) {
+                return is_array($value);
+            });
+            if ($implodable) {
+                $outcomingQuery = collect($incomingQuery)->map(function ($item) {
+                    return collect($item)->map(function ($item) {
+                        return implode(',', $item);
+                    });
+                });
+                return redirect()->route('tasks.index', $outcomingQuery->toArray());
+            }
+        }
+
         $tasks = QueryBuilder::for(Task::class)
             ->latest()
             ->with('creator', 'assignees', 'status', 'labels')
@@ -74,7 +89,7 @@ class TaskController extends Controller
         $task->assignees()->sync($request->assignees);
         $task->labels()->sync($request->labels);
 
-        flash("Task \"$task->name\" was created successfully!")->success()->important();
+        flash(__("Task was created successfully!"))->success()->important();
 
         return redirect()->route('tasks.show', $task);
     }
@@ -122,7 +137,7 @@ class TaskController extends Controller
         $task->assignees()->sync($request->assignees);
         $task->labels()->sync($request->labels);
 
-        flash("Task \"$task->name\" was updated successfully!")->success()->important();
+        flash(__("Task was updated successfully!"))->success()->important();
 
         return redirect()->route('tasks.index');
     }
@@ -139,7 +154,7 @@ class TaskController extends Controller
 
         $task->delete();
 
-        flash("Task \"$task->name\" was deleted successfully!")->success()->important();
+        flash(__("Task was deleted successfully!"))->success()->important();
 
         return redirect()->route('tasks.index');
     }

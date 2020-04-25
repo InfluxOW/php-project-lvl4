@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d343e83e8c3d1e44ba295aadeffc77c6",
+    "content-hash": "e7df773bfd53af0e2fb4dcaa85258683",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -60,16 +60,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.135.1",
+            "version": "3.135.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "59587a4f3fc88b36ce7f2e1a102bfcd7a816b27c"
+                "reference": "fb6f4a12d9ad1b8fc1481aef61ed1f8a9fe2164b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/59587a4f3fc88b36ce7f2e1a102bfcd7a816b27c",
-                "reference": "59587a4f3fc88b36ce7f2e1a102bfcd7a816b27c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fb6f4a12d9ad1b8fc1481aef61ed1f8a9fe2164b",
+                "reference": "fb6f4a12d9ad1b8fc1481aef61ed1f8a9fe2164b",
                 "shasum": ""
             },
             "require": {
@@ -140,7 +140,7 @@
                 "s3",
                 "sdk"
             ],
-            "time": "2020-04-21T18:14:29+00:00"
+            "time": "2020-04-24T18:14:04+00:00"
         },
         {
             "name": "brick/math",
@@ -876,16 +876,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v7.7.1",
+            "version": "v7.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "4de129177f889cd7672e732d8808020adfb7b121"
+                "reference": "cdc6d7e6c744f4d8f7d61102aea9b111550cd297"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/4de129177f889cd7672e732d8808020adfb7b121",
-                "reference": "4de129177f889cd7672e732d8808020adfb7b121",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/cdc6d7e6c744f4d8f7d61102aea9b111550cd297",
+                "reference": "cdc6d7e6c744f4d8f7d61102aea9b111550cd297",
                 "shasum": ""
             },
             "require": {
@@ -1024,7 +1024,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2020-04-21T18:57:12+00:00"
+            "time": "2020-04-24T17:21:56+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -1215,16 +1215,16 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.4.1",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "c995966d35424bae20f76f8b31248099487a3f57"
+                "reference": "9e780d972185e4f737a03bade0fd34a9e67bbf31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c995966d35424bae20f76f8b31248099487a3f57",
-                "reference": "c995966d35424bae20f76f8b31248099487a3f57",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/9e780d972185e4f737a03bade0fd34a9e67bbf31",
+                "reference": "9e780d972185e4f737a03bade0fd34a9e67bbf31",
                 "shasum": ""
             },
             "require": {
@@ -1285,7 +1285,7 @@
                 "md",
                 "parser"
             ],
-            "time": "2020-04-20T13:36:51+00:00"
+            "time": "2020-04-24T13:39:56+00:00"
         },
         {
             "name": "league/flysystem",
@@ -2496,16 +2496,16 @@
         },
         {
             "name": "snapappointments/bootstrap-select",
-            "version": "v1.13.15",
+            "version": "v1.13.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/snapappointments/bootstrap-select.git",
-                "reference": "92f0074adf1fc106b9f2401c0702eab08c1d867b"
+                "reference": "3a4be5f269921f3dd270b41a9c60a829a06ca840"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/snapappointments/bootstrap-select/zipball/92f0074adf1fc106b9f2401c0702eab08c1d867b",
-                "reference": "92f0074adf1fc106b9f2401c0702eab08c1d867b",
+                "url": "https://api.github.com/repos/snapappointments/bootstrap-select/zipball/3a4be5f269921f3dd270b41a9c60a829a06ca840",
+                "reference": "3a4be5f269921f3dd270b41a9c60a829a06ca840",
                 "shasum": ""
             },
             "suggest": {
@@ -2542,7 +2542,7 @@
                 "replacement",
                 "select"
             ],
-            "time": "2020-04-21T00:37:07+00:00"
+            "time": "2020-04-24T22:45:51+00:00"
         },
         {
             "name": "spatie/laravel-query-builder",
@@ -4087,57 +4087,6 @@
             "time": "2020-03-16T13:29:47+00:00"
         },
         {
-            "name": "twbs/bootstrap",
-            "version": "v4.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "dca1ab7d877bc4b664b43604657a2b5fbe2b4ecb"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/dca1ab7d877bc4b664b43604657a2b5fbe2b4ecb",
-                "reference": "dca1ab7d877bc4b664b43604657a2b5fbe2b4ecb",
-                "shasum": ""
-            },
-            "replace": {
-                "twitter/bootstrap": "self.version"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.3.x-dev"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mark Otto",
-                    "email": "markdotto@gmail.com"
-                },
-                {
-                    "name": "Jacob Thornton",
-                    "email": "jacobthornton@gmail.com"
-                }
-            ],
-            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-            "homepage": "https://getbootstrap.com/",
-            "keywords": [
-                "JS",
-                "css",
-                "framework",
-                "front-end",
-                "mobile-first",
-                "responsive",
-                "sass",
-                "web"
-            ],
-            "time": "2019-11-28T12:59:49+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v4.1.4",
             "source": {
@@ -5518,16 +5467,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.3",
+            "version": "8.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "67750516bc02f300e2742fed2f50177f8f37bedf"
+                "reference": "8474e22d7d642f665084ba5ec780626cbd1efd23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/67750516bc02f300e2742fed2f50177f8f37bedf",
-                "reference": "67750516bc02f300e2742fed2f50177f8f37bedf",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/8474e22d7d642f665084ba5ec780626cbd1efd23",
+                "reference": "8474e22d7d642f665084ba5ec780626cbd1efd23",
                 "shasum": ""
             },
             "require": {
@@ -5597,7 +5546,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2020-03-31T08:52:04+00:00"
+            "time": "2020-04-23T04:39:42+00:00"
         },
         {
             "name": "scrivo/highlight.php",

@@ -22,16 +22,11 @@ class TaskControllerTest extends TestCase
 
         $this->task = factory(Task::class)->create();
         $this->goodData = Arr::only(factory(Task::class)->make()->toArray(), ['name', 'description', 'status_id']);
-        $this->badData = [
-            'name' => '12',
-            'description' => str_repeat('too long description', 50),
-            'status_id' => $this->task->status->id
-        ];
     }
 
     //Testing actions as a user
 
-    public function testUserStoreSuccess()
+    public function testUserStore()
     {
         $this->actingAs($this->user())
             ->post(route('tasks.store'), $this->goodData)
@@ -40,22 +35,13 @@ class TaskControllerTest extends TestCase
         $this->assertDatabaseHas('tasks', $this->goodData);
     }
 
-    public function testUserStoreFail()
-    {
-        $this->actingAs($this->user())
-            ->post(route('tasks.index'), $this->badData)
-            ->assertSessionHasErrors()
-            ->assertRedirect();
-        $this->assertDatabaseMissing('tasks', $this->badData);
-    }
-
-    public function testUserEditSuccess()
+    public function testUserEdit()
     {
         $response = $this->actingAs($this->user())->get(route('labels.edit', $this->task));
         $response->assertOk();
     }
 
-    public function testUserUpdateSuccess()
+    public function testUserUpdate()
     {
         $this->actingAs($this->task->creator)
             ->patch(route('tasks.update', $this->task), $this->goodData)
@@ -64,24 +50,7 @@ class TaskControllerTest extends TestCase
         $this->assertDatabaseHas("tasks", $this->goodData);
     }
 
-    public function testUserUpdateFail()
-    {
-        $this->actingAs($this->task->creator)
-            ->patch(route('tasks.update', $this->task), $this->badData)
-            ->assertSessionHasErrors()
-            ->assertRedirect();
-        $this->assertDatabaseMissing("tasks", $this->badData);
-    }
-
-    public function testUserDeleteFail()
-    {
-        $this->actingAs($this->user())
-            ->delete(route('tasks.destroy', $this->task))
-            ->assertForbidden();
-        $this->assertDatabaseHas("tasks", ['id' => $this->task->id]);
-    }
-
-    public function testUserDeleteSuccess()
+    public function testUserDelete()
     {
         $this->actingAs($this->task->creator)
             ->delete(route('tasks.destroy', $this->task))

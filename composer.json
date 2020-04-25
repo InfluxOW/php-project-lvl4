@@ -22,8 +22,7 @@
         "rollbar/rollbar-laravel": "^6.0",
         "snapappointments/bootstrap-select": "^1.13",
         "spatie/laravel-query-builder": "^2.8",
-        "tizis/lara-comments": "^3.0",
-        "twbs/bootstrap": "4.4.1"
+        "tizis/lara-comments": "^3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

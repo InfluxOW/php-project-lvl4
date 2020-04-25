@@ -14,13 +14,11 @@ class LabelControllerTest extends TestCase
     {
         parent::setUp();
         $this->label = factory(Label::class)->create();
-
         $this->goodData = Arr::only(factory(Label::class)->make()->toArray(), ['name', 'description']);
-        $this->badData = ['name' => '12', 'description' => '12'];
     }
     //Testing actions as a user
 
-    public function testUserStoreSuccess()
+    public function testUserStore()
     {
         $this->actingAs($this->user())
             ->post(route('labels.store'), $this->goodData)
@@ -29,22 +27,13 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseHas('labels', $this->goodData);
     }
 
-    public function testUserStoreFail()
-    {
-        $this->actingAs($this->user())
-            ->post(route('labels.index'), $this->badData)
-            ->assertSessionHasErrors()
-            ->assertRedirect();
-        $this->assertDatabaseMissing('labels', $this->badData);
-    }
-
-    public function testUserEditSuccess()
+    public function testUserEdit()
     {
         $response = $this->actingAs($this->user())->get(route('labels.edit', $this->label));
         $response->assertOk();
     }
 
-    public function testUserUpdateSuccess()
+    public function testUserUpdate()
     {
         $this->actingAs($this->user())
             ->patch(route('labels.update', $this->label), $this->goodData)
@@ -53,16 +42,7 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseHas("labels", $this->goodData);
     }
 
-    public function testUserUpdateFail()
-    {
-        $this->actingAs($this->user())
-            ->patch(route('labels.update', $this->label), $this->badData)
-            ->assertSessionHasErrors()
-            ->assertRedirect();
-        $this->assertDatabaseMissing("labels", $this->badData);
-    }
-
-    public function testUserDeleteSuccess()
+    public function testUserDelete()
     {
         $this->actingAs($this->user())
             ->delete(route('labels.destroy', $this->label))
