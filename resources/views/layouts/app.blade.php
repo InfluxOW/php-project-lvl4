@@ -69,8 +69,7 @@
 
     @yield('content')
 </div>
-<!-- Optional JavaScript -->
-{{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script> --}}
+
 <script>
     $('div.alert').not('.alert-important').delay(2000).fadeOut(2000);
 </script>

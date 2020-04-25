@@ -15,7 +15,6 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->only(['edit', 'update', 'create', 'store', 'destroy']);
-        // $this->middleware('filtration')->only('index');
     }
 
     /**
