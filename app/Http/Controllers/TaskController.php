@@ -14,7 +14,6 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->only(['edit', 'update', 'create', 'store', 'destroy']);
-        $this->middleware('filtration')->only('index');
     }
 
     /**
@@ -141,5 +140,16 @@ class TaskController extends Controller
         flash("Task \"$task->name\" was deleted successfully!")->success()->important();
 
         return redirect()->route('tasks.index');
+    }
+
+    public function filtration(Request $request)
+    {
+        $incomingQuery = $request->query->all();
+        $outcomingQuery = collect($incomingQuery)->map(function ($item) {
+            return collect($item)->map(function ($item) {
+                return implode(',', $item);
+            });
+        });
+        return redirect()->route('tasks.index', $outcomingQuery->toArray());
     }
 }

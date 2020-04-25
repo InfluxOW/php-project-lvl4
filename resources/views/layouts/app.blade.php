@@ -63,7 +63,6 @@
 </div>
 
 <!-- Optional JavaScript -->
-<script src="//code.jquery.com/jquery.js"></script>
 <script src="{{ asset('js/app.js') }}"></script>
 {{-- Semantic UI JavaScript --}}
 <script src="{{ asset('js/semantic.min.js') }}"></script>
