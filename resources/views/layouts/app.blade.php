@@ -22,16 +22,16 @@
             <h4 class="helvetica bigger-font"><i class="calendar alternate icon"></i>Task Manager</h4>
         </div>
         <a class="helvetica bigger-font item {{ (request()->is('/')) ? 'active' : '' }}" href="{{ route('home') }}">
-            {{ __('Home') }}
+            <div><i class="home icon"></i>{{ __('Home') }}</div>
         </a>
         <a class="helvetica bigger-font item {{ (request()->is('tasks') || request()->is('tasks/*')) ? 'active' : '' }}" href="{{ route('tasks.index') }}">
-            {{ __('Tasks') }}
+            <div><i class="tasks icon"></i>{{ __('Tasks') }}</div>
         </a>
         <a class="helvetica bigger-font item {{ (request()->is('task_statuses') || request()->is('task_statuses/*')) ? 'active' : '' }}" href="{{ route('task_statuses.index') }}">
-            {{ __('Statuses') }}
+            <div><i class="info circle icon"></i>{{ __('Statuses') }}</div>
         </a>
         <a class="helvetica bigger-font item {{ (request()->is('labels') || request()->is('labels/*')) ? 'active' : '' }}" href="{{ route('labels.index') }}">
-            {{ __('Labels') }}
+            <div><i class="tags icon"></i>{{ __('Labels') }}</div>
         </a>
 
         <div class="right menu">
@@ -41,7 +41,7 @@
                 @endguest
                 @auth
                 <div class="ui dropdown item helvetica bigger-font">
-                    {{ Auth::user()->name }}<i class="dropdown icon"></i>
+                    <div><i class="user icon"></i>{{ Auth::user()->name }}</div><i class="dropdown icon"></i>
                     <div class="menu">
                         <a class="helvetica bigger-font item" href="{{ route('users.show', Auth::user()) }}">Profile</a>
                         <a class="helvetica bigger-font item" href="{{ route('users.edit', Auth::user()) }}">Edit profile</a>
