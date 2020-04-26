@@ -23,21 +23,6 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        // if ($request->has('filter')) {
-        //     $incomingQuery = $request->query->all();
-        //     $implodable = collect($incomingQuery['filter'])->every(function ($value) {
-        //         return is_array($value);
-        //     });
-        //     if ($implodable) {
-        //         $outcomingQuery = collect($incomingQuery)->map(function ($item) {
-        //             return collect($item)->map(function ($item) {
-        //                 return implode(',', $item);
-        //             });
-        //         });
-        //         return redirect()->route('tasks.index', $outcomingQuery->toArray());
-        //     }
-        // }
-
         $tasks = QueryBuilder::for(Task::class)
             ->latest()
             ->with('creator', 'assignees', 'status', 'labels')

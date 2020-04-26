@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StatusValidation;
 use App\Task;
 use App\TaskStatus as Status;
+use Exception;
 
 class TaskStatusController extends Controller
 {
