@@ -10,7 +10,6 @@ use Spatie\QueryBuilder\AllowedFilter;
 
 class TaskController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth')->only(['edit', 'update', 'create', 'store', 'destroy']);
@@ -23,7 +22,6 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        // dd($request->request, $request->query);
         $tasks = QueryBuilder::for(Task::class)
             ->latest()
             ->with('creator', 'assignees', 'status', 'labels')
