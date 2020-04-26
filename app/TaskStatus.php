@@ -19,7 +19,7 @@ class TaskStatus extends Model
 
     public function tasks()
     {
-        return $this->hasMany('App\Task');
+        return $this->hasMany('App\Task', 'status_id');
     }
 
     //Scopes
@@ -27,18 +27,5 @@ class TaskStatus extends Model
     public function scopeLatest(Builder $query)
     {
         return $query->orderBy(static::CREATED_AT, 'desc');
-    }
-
-    //Boot
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function ($status) {
-            Task::whereHas('status', function ($query) use ($status) {
-                $query->where('id', $status->id);
-            })->delete();
-        });
     }
 }

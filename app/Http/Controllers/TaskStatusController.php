@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StatusValidation;
+use App\Task;
 use App\TaskStatus as Status;
 
 class TaskStatusController extends Controller
@@ -97,6 +98,13 @@ class TaskStatusController extends Controller
     public function destroy(Status $task_status)
     {
         $this->authorize($task_status);
+
+        $associatedTasksCount = $task_status->tasks()->count();
+        if ($associatedTasksCount > 0) {
+            flash(__('This status is used in some tasks.
+            You should change it to another one before deleting the status.'))->error()->important();
+            return back();
+        }
 
         $task_status->delete();
 
