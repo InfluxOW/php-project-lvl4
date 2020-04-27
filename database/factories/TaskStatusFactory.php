@@ -28,7 +28,7 @@ $factory->state(Status::class, 'testing', function () {
         'name' => 'testing',
     ];
 });
-$factory->state(TaskStatus::class, 'completed', function () {
+$factory->state(Status::class, 'completed', function () {
     return [
         'name' => 'completed',
     ];
