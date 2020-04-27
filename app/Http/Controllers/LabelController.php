@@ -48,7 +48,7 @@ class LabelController extends Controller
     {
         $this->authorize(Label::class);
 
-        Label::create($request->all());
+        $label = Label::create($request->all());
 
         flash("Label \"$label->name\" was created successfully!")->success()->important();
 

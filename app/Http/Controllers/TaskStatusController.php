@@ -47,7 +47,7 @@ class TaskStatusController extends Controller
     public function store(StatusValidation $request)
     {
         $this->authorize(Status::class);
-        Status::create($request->all());
+        $task_status = Status::create($request->all());
 
         flash("Status \"$task_status->name\" was created successfully!")->success()->important();
 
