@@ -29,7 +29,7 @@ class Task extends Model implements ICommentable
 
     public function assignees()
     {
-        return $this->belongsToMany('App\User', 'task_assignees', 'task_id', 'assignee_id')->withTimestamps();
+        return $this->belongsToMany('App\User', 'task_assignee', 'task_id', 'assignee_id')->withTimestamps();
     }
 
     public function labels()
