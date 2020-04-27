@@ -25,7 +25,10 @@ class TaskValidation extends FormRequest
     {
         return [
             'name' => 'required|min:5|max:50',
-            'description' => 'max:1000'
+            'description' => 'max:1000',
+            'status_id' => 'exists:task_statuses,id',
+            'assignees' => 'exists:users,id',
+            'labels' => 'exists:labels,id'
         ];
     }
 }

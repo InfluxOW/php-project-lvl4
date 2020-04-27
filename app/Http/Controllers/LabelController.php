@@ -48,8 +48,7 @@ class LabelController extends Controller
     {
         $this->authorize(Label::class);
 
-        $validatedData = $request->validated();
-        $label = Label::create($validatedData);
+        Label::create($request->all());
 
         flash("Label \"$label->name\" was created successfully!")->success()->important();
 
@@ -80,8 +79,7 @@ class LabelController extends Controller
     {
         $this->authorize($label);
 
-        $validatedData = $request->validated();
-        $label->update($validatedData);
+        $label->update($request->all());
 
         flash("Label \"$label->name\" was updated successfully!")->success()->important();
 
