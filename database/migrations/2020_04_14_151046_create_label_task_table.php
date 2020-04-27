@@ -22,6 +22,7 @@ class CreateLabelTaskTable extends Migration
             $table->unsignedInteger('label_id')->index();
             $table->foreign('label_id')->references('id')->on('labels')->cascadeOnDelete();
 
+            $table->unique(['task_id', 'label_id']);
             $table->timestamps();
         });
     }

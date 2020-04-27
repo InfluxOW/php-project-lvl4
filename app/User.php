@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function assignedTasks()
     {
-        return $this->belongsToMany('App\Task', 'task_assignees', 'assignee_id', 'task_id');
+        return $this->belongsToMany('App\Task', 'task_assignee', 'assignee_id', 'task_id');
     }
 
     public function image()
