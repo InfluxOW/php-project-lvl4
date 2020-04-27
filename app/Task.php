@@ -13,7 +13,7 @@ class Task extends Model implements ICommentable
     use SoftDeletes;
     use Commentable;
 
-    protected $fillable = ['name', 'description', 'status_id', 'creator_id'];
+    protected $fillable = ['name', 'description', 'status_id', 'assignees', 'labels'];
 
     //Relations
 

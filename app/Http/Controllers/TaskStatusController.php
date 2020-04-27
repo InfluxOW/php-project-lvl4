@@ -49,9 +49,7 @@ class TaskStatusController extends Controller
     public function store(StatusValidation $request)
     {
         $this->authorize(Status::class);
-
-        $validatedData = $request->validated();
-        $task_status = Status::create($validatedData);
+        Status::create($request->all());
 
         flash(__("Status was created successfully!"))->success()->important();
 
@@ -82,8 +80,7 @@ class TaskStatusController extends Controller
     {
         $this->authorize($task_status);
 
-        $validatedData = $request->validated();
-        $task_status->update($validatedData);
+        $task_status->update($request->all());
 
         flash(__("Status was updated successfully!"))->success()->important();
 

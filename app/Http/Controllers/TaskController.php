@@ -62,11 +62,7 @@ class TaskController extends Controller
     {
         $this->authorize(Task::class);
 
-        $validatedData = $request->validated();
-        $task = Task::make($validatedData);
-
-        $task->creator()->associate($request->user());
-        $task->status()->associate($request->status_id);
+        $task = $request->user()->createdTasks()->create($request->only(['name', 'description', 'status_id']));
         $task->save();
 
         $task->assignees()->sync($request->assignees);
@@ -112,9 +108,7 @@ class TaskController extends Controller
     {
         $this->authorize($task);
 
-        $validatedData = $request->validated();
-        $task->fill($validatedData);
-        $task->status()->associate($request->status_id);
+        $task->fill($request->only(['name', 'description', 'status_id']));
         $task->save();
 
         $task->assignees()->sync($request->assignees);
