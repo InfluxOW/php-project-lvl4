@@ -1,5 +1,7 @@
 test:
 	php artisan test
+test-coverage:
+	composer phpunit tests -- --coverage-clover build/logs/clover.xml
 install:
 	composer install
 run:
