@@ -1,29 +1,32 @@
-name: Main workflow
+# Name of workflow
+name: PHP CI
 
+# Trigger the workflow on push or pull request
 on:
-  pull_request:
-    branches:
-      - 'master'
-  push:
-    branches:
-      - 'master'
+  - push
+  - pull_request
 
 jobs:
   build:
+
+    # The type of machine to run the job on
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
+        # Check-out repository under GitHub workspace
+        # https://github.com/actions/checkout
+      - uses: actions/checkout@v2
+        # Step's name
+      - name: PHP Security Checker
+        uses: StephaneBour/actions-php-security-checker@1.0
 
-    - name: PHP Security Checker
-      uses: StephaneBour/actions-php-security-checker@1.0
+      - name: Setup project
+        run: make setup
 
-    - name: Setup project
-      run: make setup
+      - name: Make lint
+        run: make lint
 
-    - name: Check lint
-      run: make lint
-
-    - name: Run test & publish code coverage
+      - name: Run test & publish code coverage
         uses: paambaati/codeclimate-action@v2.6.0
         # Add Code Climate secret key
         env:

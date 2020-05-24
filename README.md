@@ -1,6 +1,7 @@
 # php-project-lvl4
 [![Maintainability](https://api.codeclimate.com/v1/badges/2177a7c287a4880828c7/maintainability)](https://codeclimate.com/github/InfluxOW/php-project-lvl4/maintainability)
-![Main workflow](https://github.com/InfluxOW/php-project-lvl4/workflows/Main%20workflow/badge.svg)\
+![PHP CI](https://github.com/InfluxOW/php-project-lvl4/workflows/PHP%20CI/badge.svg)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/2177a7c287a4880828c7/test_coverage)](https://codeclimate.com/github/InfluxOW/php-project-lvl4/test_coverage)\
 [https://influx-task-manager.herokuapp.com/](https://influx-task-manager.herokuapp.com/)
 # Development Setup
 1. Run `make setup` to install dependencies, generate .env file, create SQLite database, apply migrations.
