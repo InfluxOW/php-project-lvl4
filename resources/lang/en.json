@@ -1,0 +1,11 @@
+{
+    "label_created": "Label «:label» was created successfully!",
+    "label_updated": "Label «:label» was updated successfully!",
+    "label_deleted": "Label «:label» was deleted successfully!",
+    "task_created": "Task «:task» was created successfully!",
+    "task_updated": "Task «:task» was updated successfully!",
+    "task_deleted": "Task «:task» was deleted successfully!",
+    "status_created": "Status «:status» was created successfully!",
+    "status_updated": "Status «:status» was updated successfully!",
+    "status_deleted": "Status «:status» was deleted successfully!"
+}

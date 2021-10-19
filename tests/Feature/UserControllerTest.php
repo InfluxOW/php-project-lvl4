@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Arr;
 
@@ -19,7 +17,9 @@ class UserControllerTest extends TestCase
         $this->badData = ['name' => ''];
     }
 
-    //Testing actions as a guest
+    /*
+     * Guest tests
+     * */
 
     public function testGuestShow()
     {
@@ -39,7 +39,9 @@ class UserControllerTest extends TestCase
         $response->assertRedirect(route('login'));
     }
 
-    //Testing actions as a user
+    /*
+     * Authenticated user tests
+     * */
 
     public function testUserShow()
     {

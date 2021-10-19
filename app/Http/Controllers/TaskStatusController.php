@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TaskStatusValidation as StatusValidation;
+use App\Http\Requests\TaskStatusRequest;
 use App\TaskStatus as Status;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class TaskStatusController extends Controller
 {
@@ -12,92 +14,58 @@ class TaskStatusController extends Controller
         $this->middleware('auth')->only(['store', 'create', 'edit', 'update', 'destroy']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(): View
     {
-        $statuses = Status::latest()->paginate(5);
+        $statuses = Status::latest()->paginate(10);
 
         return view('task_statuses.index', compact('statuses'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
         $this->authorize(Status::class);
 
-        $task_status = new Status();
+        $status = new Status();
 
-        return view('task_statuses.create', compact('task_status'));
+        return view('task_statuses.create', compact('status'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StatusValidation $request)
+    public function store(TaskStatusRequest $request): RedirectResponse
     {
         $this->authorize(Status::class);
-        $task_status = Status::create($request->all());
 
-        flash("Status \"$task_status->name\" was created successfully!")->success()->important();
+        $status = Status::create($request->all());
+
+        flash(__('status_created', ['status' => $status->name]))->success()->important();
 
         return redirect()->route('task_statuses.index');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Status  $status
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Status $task_status)
+    public function edit(Status $status): View
     {
-        $this->authorize($task_status);
+        $this->authorize($status);
 
-        return view('task_statuses.edit', compact('task_status'));
+        return view('task_statuses.edit', compact('status'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Status  $status
-     * @return \Illuminate\Http\Response
-     */
-    public function update(StatusValidation $request, Status $task_status)
+    public function update(TaskStatusRequest $request, Status $status): RedirectResponse
     {
-        $this->authorize($task_status);
+        $this->authorize($status);
 
-        $task_status->update($request->all());
+        $status->update($request->all());
 
-        flash("Status \"$task_status->name\" was updated successfully!")->success()->important();
+        flash(__('status_updated', ['status' => $status->name]))->success()->important();
 
-        return redirect()->route('task_statuses.index', $task_status);
+        return redirect()->route('task_statuses.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Status  $status
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Status $task_status)
+    public function destroy(Status $status): RedirectResponse
     {
-        $this->authorize($task_status);
+        $this->authorize($status);
 
-        $task_status->delete();
+        $status->delete();
 
-        flash("Status \"$task_status->name\" was deleted successfully!")->success()->important();
+        flash(__('status_deleted', ['status' => $status->name]))->success()->important();
 
         return redirect()->route('task_statuses.index');
     }

@@ -46,7 +46,7 @@
             <h3 class="ui centered header">{{ $user->name }}</h3>
             <img src="{{ isset($user->image) ? $user->image->url : 'https://udemy-project-1.s3.eu-west-3.amazonaws.com/avatars/default-user-image.png' }}" class="ui centered bordered small image">
             <div class="ui center aligned basic segment">
-                {{ __('Completed tasks count') }}: {{ count($user->assignedTasks()->withTrashed()->completedTasks()->get()) }}
+                {{ __('Completed tasks count') }}: {{ count($user->assignedTasks()->withTrashed()->completed()->get()) }}
                 </div>
         </div>
     </div>

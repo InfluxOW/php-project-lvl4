@@ -1,33 +1,28 @@
 <?php
 
-function getDefaultFiltrationValues($name)
+function getFilterValues(string $filter): ?array
 {
-    if (array_key_exists('filter', request()->query->all())) {
-        if (array_key_exists($name, request()->query->all()['filter'])) {
-            $filtrationValues = request()->query->all()['filter'][$name];
-            return explode(',', $filtrationValues);
-        }
+    if (array_key_exists('filter', request()->query->all()) && array_key_exists($filter, request()->query->all()['filter'])) {
+        $values = request()->query->all()['filter'][$filter];
+
+        return explode(',', $values);
     }
+
     return null;
 }
 
-function flashMessageLevelToSemanticUi($level)
+function flashMessageLevelToSemanticUiClass(string $level): string
 {
     switch ($level) {
         case 'info':
             return 'blue';
-            break;
         case 'success':
             return 'green';
-            break;
         case 'error':
             return 'red';
-            break;
         case 'warning':
             return 'yellow';
-            break;
         case 'default':
             return '';
-            break;
     }
 }

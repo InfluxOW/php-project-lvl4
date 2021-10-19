@@ -2,7 +2,7 @@
 
 namespace App\Http\ViewComposers;
 
-use Illuminate\Support\Facades\Cache;
+use App\Enums\TaskStatus;
 use Illuminate\View\View;
 use App\BlogPost;
 use App\Label;
@@ -14,18 +14,13 @@ class Filtration
     public function compose(View $view)
     {
         $statuses = Status::pluck('name', 'id');
-        $assignees = User::assignees()->pluck('name', 'id');
-        $creators = User::creators()->pluck('name', 'id');
+        $assignees = User::assignee()->pluck('name', 'id');
+        $creators = User::creator()->pluck('name', 'id');
         $users = User::pluck('name', 'id');
         $labels = Label::pluck('name', 'id');
 
-        $statusNew = Status::where('name', 'new')->pluck('id');
-
-        if (request()->has('filter')) {
-            $query = request()->query->all()['filter'];
-        } else {
-            $query = null;
-        }
+        $statusNew = Status::where('name', TaskStatus::NEW)->pluck('id');
+        $query = request()->has('filter') ? request()->query->all()['filter'] : null;
 
         $view->with('statuses', $statuses);
         $view->with('assignees', $assignees);

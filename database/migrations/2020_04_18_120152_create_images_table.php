@@ -17,9 +17,10 @@ class CreateImagesTable extends Migration
             $table->id();
             $table->string('path');
             $table->string('url');
-            $table->unsignedInteger('user_id')->index();
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->unsignedInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 

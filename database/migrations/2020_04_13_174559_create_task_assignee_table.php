@@ -15,15 +15,13 @@ class CreateTaskAssigneeTable extends Migration
     {
         Schema::create('task_assignee', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedInteger('task_id')->index();
-            $table->foreign('task_id')->references('id')->on('tasks')->cascadeOnDelete();
-
-            $table->unsignedInteger('assignee_id')->index();
-            $table->foreign('assignee_id')->references('id')->on('users')->cascadeOnDelete();
-
-            $table->unique(['task_id', 'assignee_id']);
+            $table->unsignedInteger('task_id');
+            $table->unsignedInteger('assignee_id');
             $table->timestamps();
+
+            $table->foreign('task_id')->references('id')->on('tasks')->cascadeOnDelete();
+            $table->foreign('assignee_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->unique(['task_id', 'assignee_id']);
         });
     }
 

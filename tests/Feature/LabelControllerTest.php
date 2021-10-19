@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use App\Label;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
 
@@ -15,13 +13,21 @@ class LabelControllerTest extends TestCase
         parent::setUp();
         $this->label = factory(Label::class)->create();
 
-        $this->goodData = Arr::only(factory(Label::class)->make()->toArray(), ['name', 'description']);
+        $this->goodData = Arr::only(factory(Label::class)->make()->toArray(), ['name', 'description', 'attention_level']);
         $this->badData = ['name' => '12', 'description' => '12'];
     }
 
-    //Testing actions as a guest
+    /*
+     * Guest tests
+     * */
 
-    public function testGuestStore()
+    public function testGuestIndex(): void
+    {
+        $response = $this->get(route('labels.index'));
+        $response->assertOk();
+    }
+
+    public function testGuestStore(): void
     {
         $response = $this->post(route('labels.store'), $this->goodData);
 
@@ -29,13 +35,13 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseMissing('labels', $this->goodData);
     }
 
-    public function testGuestEdit()
+    public function testGuestEdit(): void
     {
         $response = $this->get(route('labels.edit', $this->label));
         $response->assertRedirect(route('login'));
     }
 
-    public function testGuestUpdate()
+    public function testGuestUpdate(): void
     {
         $response = $this->patch(route('labels.update', $this->label), $this->goodData);
 
@@ -43,7 +49,7 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseMissing('labels', $this->goodData);
     }
 
-    public function testGuestDelete()
+    public function testGuestDelete(): void
     {
         $response = $this->delete(route('labels.destroy', $this->label));
 
@@ -51,9 +57,17 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseHas('labels', ['id' => $this->label->id]);
     }
 
-    //Testing actions as a user
+    /*
+     * Authenticated user tests
+     * */
 
-    public function testUserStoreSuccess()
+    public function testUserIndex(): void
+    {
+        $response = $this->actingAs($this->user())->get(route('labels.index'));
+        $response->assertOk();
+    }
+
+    public function testUserStoreSuccess(): void
     {
         $this->actingAs($this->user())
             ->post(route('labels.store'), $this->goodData)
@@ -62,7 +76,7 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseHas('labels', $this->goodData);
     }
 
-    public function testUserStoreFail()
+    public function testUserStoreFail(): void
     {
         $this->actingAs($this->user())
             ->post(route('labels.index'), $this->badData)
@@ -71,13 +85,13 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseMissing('labels', $this->badData);
     }
 
-    public function testUserEditSuccess()
+    public function testUserEditSuccess(): void
     {
         $response = $this->actingAs($this->user())->get(route('labels.edit', $this->label));
         $response->assertOk();
     }
 
-    public function testUserUpdateSuccess()
+    public function testUserUpdateSuccess(): void
     {
         $this->actingAs($this->user())
             ->patch(route('labels.update', $this->label), $this->goodData)
@@ -86,7 +100,7 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseHas("labels", $this->goodData);
     }
 
-    public function testUserUpdateFail()
+    public function testUserUpdateFail(): void
     {
         $this->actingAs($this->user())
             ->patch(route('labels.update', $this->label), $this->badData)
@@ -95,20 +109,12 @@ class LabelControllerTest extends TestCase
         $this->assertDatabaseMissing("labels", $this->badData);
     }
 
-    public function testUserDeleteSuccess()
+    public function testUserDeleteSuccess(): void
     {
         $this->actingAs($this->user())
             ->delete(route('labels.destroy', $this->label))
             ->assertSessionHasNoErrors()
             ->assertRedirect();
         $this->assertSoftDeleted("labels", ['id' => $this->label->id]);
-    }
-
-    //Testing actions that both users and guests are able to perform
-
-    public function testIndex()
-    {
-        $response = $this->get(route('labels.index'));
-        $response->assertOk();
     }
 }

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TaskValidation;
+use App\Http\Requests\TaskRequest;
 use App\Task;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 use Spatie\QueryBuilder\AllowedFilter;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class TaskController extends Controller
 {
@@ -15,12 +19,7 @@ class TaskController extends Controller
         $this->middleware('auth')->only(['edit', 'update', 'create', 'store', 'destroy']);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    public function index(): View
     {
         $tasks = QueryBuilder::for(Task::class)
             ->latest()
@@ -37,12 +36,7 @@ class TaskController extends Controller
         return view('tasks.index', compact('tasks'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
         $this->authorize(Task::class);
 
@@ -51,97 +45,78 @@ class TaskController extends Controller
         return view('tasks.create', compact('task'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(TaskValidation $request)
+    public function store(TaskRequest $request): RedirectResponse
     {
         $this->authorize(Task::class);
 
-        $task = $request->user()->createdTasks()->create($request->only(['name', 'description', 'status_id']));
-        $task->save();
-        $task->assignees()->sync($request->assignees);
-        $task->labels()->sync($request->labels);
+        $task = DB::transaction(function () use ($request): Task {
+            $task = $request->user()->createdTasks()->create($request->only(['name', 'description', 'status_id']));
+            $task->assignees()->sync($request->assignees);
+            $task->labels()->sync($request->labels);
 
-        flash("Task \"$task->name\" was created successfully!")->success()->important();
+            return $task;
+        });
+
+        flash(__('task_created', ['task' => $task->name]))->success()->important();
 
         return redirect()->route('tasks.show', $task);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Task $task)
+    public function show(Task $task): View
     {
         return view('tasks.show', compact('task'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Task $task)
+    public function edit(Task $task): View
     {
         $this->authorize($task);
 
         return view('tasks.edit', compact('task'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function update(TaskValidation $request, Task $task)
+    public function update(TaskRequest $request, Task $task): RedirectResponse
     {
         $this->authorize($task);
 
-        $task->fill($request->only(['name', 'description', 'status_id']));
-        $task->save();
+        $task = DB::transaction(function () use ($request, $task): Task {
+            $task->fill($request->only(['name', 'description', 'status_id']));
+            $task->save();
 
-        $task->assignees()->sync($request->assignees);
-        $task->labels()->sync($request->labels);
+            $task->assignees()->sync($request->assignees);
+            $task->labels()->sync($request->labels);
 
-        flash("Task \"$task->name\" was updated successfully!")->success()->important();
+            return $task;
+        });
+
+        flash(__('task_updated', ['task' => $task->name]))->success()->important();
 
         return redirect()->route('tasks.index');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Task $task)
+    public function destroy(Task $task): RedirectResponse
     {
         $this->authorize($task);
 
         $task->delete();
 
-        flash("Task \"$task->name\" was deleted successfully!")->success()->important();
+        flash(__('task_deleted', ['task' => $task->name]))->success()->important();
 
         return redirect()->route('tasks.index');
     }
 
-    public function filtration(Request $request)
+    public function filter(Request $request): RedirectResponse
     {
         $incomingQuery = $request->query->all();
-        $outcomingQuery = collect($incomingQuery)->map(function ($item) {
-            return collect($item)->map(function ($item) {
-                return implode(',', $item);
-            });
+        $outcomingQuery = collect($incomingQuery)->map(function (array $filters): Collection {
+            return collect($filters)
+                ->filter(function (array $filterValues): bool {
+                    return count(array_filter($filterValues)) > 0;
+                })
+                ->map(function (array $filterValues): string {
+                    return implode(',', $filterValues);
+                });
         });
+
         return redirect()->route('tasks.index', $outcomingQuery->toArray());
     }
 }

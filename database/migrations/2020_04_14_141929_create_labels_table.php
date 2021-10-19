@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\AttentionLevel;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +18,7 @@ class CreateLabelsTable extends Migration
             $table->id();
             $table->string('name', 50)->unique();
             $table->string('description', 300);
-            $table->integer('attention_level')->default(2);
+            $table->enum('attention_level', AttentionLevel::getConstants());
             $table->timestamps();
             $table->softDeletes();
         });

@@ -8,12 +8,7 @@ use Tests\TestCase;
 
 class HomeControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function testIndex()
+    public function testIndex(): void
     {
         $response = $this->get(route('home'));
         $response->assertStatus(200);

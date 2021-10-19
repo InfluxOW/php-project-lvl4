@@ -11,6 +11,6 @@
     </div>
     <div class="field">
         <div class="font-grey">{{ Form::label('attention_level', __('Attention level'), ['class' => 'zero-bottom']) }}</div>
-    {{ Form::select('attention_level', App\Label::ATTENTION_LEVEL, $label->attention_level ?? 2, ['class' => 'ui fluid selection dropdown custom-bottom']) }}
+    {{ Form::select('attention_level', App\Enums\AttentionLevel::getSelectOptions(), $label->attention_level ?? App\Enums\AttentionLevel::DEFAULT, ['class' => 'ui fluid selection dropdown custom-bottom']) }}
     </div>
 </div>

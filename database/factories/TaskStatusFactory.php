@@ -5,31 +5,16 @@
 use App\TaskStatus as Status;
 use Faker\Generator as Faker;
 
-$factory->define(Status::class, function (Faker $faker) {
+$factory->define(Status::class, function (Faker $faker): array {
     return [
         'name' => $faker->words(2, true),
     ];
 });
 
-//States
-
-$factory->state(Status::class, 'new', function () {
-    return [
-        'name' => 'new',
-    ];
-});
-$factory->state(Status::class, 'processing', function () {
-    return [
-        'name' => 'processing',
-    ];
-});
-$factory->state(Status::class, 'testing', function () {
-    return [
-        'name' => 'testing',
-    ];
-});
-$factory->state(Status::class, 'completed', function () {
-    return [
-        'name' => 'completed',
-    ];
-});
+foreach (Status::DEFAULT_STATUSES as $status) {
+    $factory->state(Status::class, $status, function () use ($status): array {
+        return [
+            'name' => $status,
+        ];
+    });
+}

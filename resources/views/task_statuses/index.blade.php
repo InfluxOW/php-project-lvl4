@@ -42,8 +42,7 @@
         <a href="{{ route('task_statuses.create') }}" class="ui positive button fluid" role="button" aria-pressed="true">{{ __('Add status') }}</a>
     @endauth
 
-    {{-- 5 is number of items per page --}}
-    @if (count(App\TaskStatus::all()) > 5)
+    @if ($statuses->total() > $statuses->perPage())
     <div class="custom-top">
         <div class="ui floated pagination menu">
             {{ $statuses->links('pagination::semantic-ui') }}

@@ -76,8 +76,7 @@
     </table>
 </div>
 
-{{-- 10 is number of items per page --}}
-@if (count(App\Task::all()) > 10)
+@if ($tasks->total() > $tasks->perPage())
     <div class="ui floated pagination menu">
         {{ $tasks->links('pagination::semantic-ui') }}
     </div>

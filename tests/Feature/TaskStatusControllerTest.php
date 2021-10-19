@@ -3,8 +3,6 @@
 namespace Tests\Feature;
 
 use App\TaskStatus as Status;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
 
@@ -19,9 +17,17 @@ class TaskStatusControllerTest extends TestCase
         $this->badData = ['name' => '12'];
     }
 
-    //Testing actions as a guest
+    /*
+     * Guest tests
+     * */
 
-    public function testGuestStore()
+    public function testGuestIndex()
+    {
+        $response = $this->get(route('task_statuses.index'));
+        $response->assertOk();
+    }
+
+    public function testGuestStore(): void
     {
         $response = $this->post(route('task_statuses.store'), $this->goodData);
 
@@ -29,13 +35,13 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseMissing('task_statuses', $this->goodData);
     }
 
-    public function testGuestEdit()
+    public function testGuestEdit(): void
     {
         $response = $this->get(route('task_statuses.edit', $this->status));
         $response->assertRedirect(route('login'));
     }
 
-    public function testGuestUpdate()
+    public function testGuestUpdate(): void
     {
         $response = $this->patch(route('task_statuses.update', $this->status), $this->goodData);
 
@@ -43,7 +49,7 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseMissing('task_statuses', $this->goodData);
     }
 
-    public function testGuestDelete()
+    public function testGuestDelete(): void
     {
         $response = $this->delete(route('task_statuses.destroy', $this->status));
 
@@ -51,9 +57,17 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseHas('task_statuses', ['id' => $this->status->id]);
     }
 
-    //Testing actions as a user
+    /*
+     * Authenticated user tests
+     * */
 
-    public function testUserStoreSuccess()
+    public function testUserIndex()
+    {
+        $response = $this->actingAs($this->user())->get(route('task_statuses.index'));
+        $response->assertOk();
+    }
+
+    public function testUserStoreSuccess(): void
     {
         $this->actingAs($this->user())
             ->post(route('task_statuses.store'), $this->goodData)
@@ -62,7 +76,7 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseHas('task_statuses', $this->goodData);
     }
 
-    public function testUserStoreFail()
+    public function testUserStoreFail(): void
     {
         $this->actingAs($this->user())
             ->post(route('task_statuses.index'), $this->badData)
@@ -71,13 +85,13 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseMissing('task_statuses', $this->badData);
     }
 
-    public function testUserEditSuccess()
+    public function testUserEditSuccess(): void
     {
         $response = $this->actingAs($this->user())->get(route('task_statuses.edit', $this->status));
         $response->assertOk();
     }
 
-    public function testUserUpdateSuccess()
+    public function testUserUpdateSuccess(): void
     {
         $this->actingAs($this->user())
             ->patch(route('task_statuses.update', $this->status), $this->goodData)
@@ -86,7 +100,7 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseHas("task_statuses", $this->goodData);
     }
 
-    public function testUserUpdateFail()
+    public function testUserUpdateFail(): void
     {
         $this->actingAs($this->user())
             ->patch(route('task_statuses.update', $this->status), $this->badData)
@@ -95,20 +109,12 @@ class TaskStatusControllerTest extends TestCase
         $this->assertDatabaseMissing("task_statuses", $this->badData);
     }
 
-    public function testUserDeleteSuccess()
+    public function testUserDeleteSuccess(): void
     {
         $this->actingAs($this->user())
             ->delete(route('task_statuses.destroy', $this->status))
             ->assertSessionHasNoErrors()
             ->assertRedirect();
         $this->assertSoftDeleted("task_statuses", ['id' => $this->status->id]);
-    }
-
-    //Testing actions that both users and guests are able to perform
-
-    public function testIndex()
-    {
-        $response = $this->get(route('task_statuses.index'));
-        $response->assertOk();
     }
 }
